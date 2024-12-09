@@ -1,50 +1,61 @@
-@use "./variables";
+@use "./variables"; // Import variables
 
-// Header Layout and Styles
+// General Styles
+body {
+  font-family: variables.$font-body;
+  background-color: variables.$background;
+  color: variables.$neutral;
+}
+
+// Header Styling
 header {
-  display: inline-flex;
-  padding: 32px 10px 10px 10px;
-  justify-content: center;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 10px 32px;
   gap: 124px;
-  width: 100%; // Full width of the page
-  background-color: variables.$primary; // Navy Blue (#2B3A67)
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: variables.$primary; // Navy Blue
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
-  .navbar-brand {
-    color: variables.$secondary; // Light Beige (#F5F5F2)
-    font-family: variables.$font-heading; // Playfair Display
+  h1 {
+    color: variables.$secondary; // Light Beige
+    font-family: variables.$font-heading;
     font-size: 36px;
-    font-style: normal;
     font-weight: 400;
     line-height: normal;
-    text-decoration: none;
-
-    &:hover {
-      color: lighten(variables.$secondary, 10%); // Slightly lighter on hover
-    }
+    margin: 0; // Removes any default margin
   }
 
-  .nav {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .menu-icon {
+    margin-left: auto; // Aligns menu icon to the far right
+  }
+}
 
-    .nav-item {
-      margin-left: 20px;
+// Buttons
+.btn-primary {
+  background-color: variables.$blue-button;
+  border-color: variables.$blue-button;
 
-      .nav-link {
-        color: variables.$secondary; // Light Beige
-        font-family: variables.$font-body;
-        font-size: 16px;
-        font-weight: 400;
-        text-decoration: none;
+  &:hover {
+    background-color: darken(variables.$blue-button, 10%);
+  }
+}
 
-        &:hover {
-          color: variables.$accent; // Teal Green (#419774)
-        }
-      }
-    }
+.btn-secondary {
+  background-color: variables.$accent;
+  border-color: variables.$accent;
+
+  &:hover {
+    background-color: variables.$hover-green;
+  }
+}
+
+// Responsive header
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
   }
 }
