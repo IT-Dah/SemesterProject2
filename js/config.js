@@ -1,1 +1,1 @@
-export const API_BASE_URL = "https://api.noroff.dev/api/v1/auction";
+export const API_BASE_URL = "https://v2.api.noroff.dev/";

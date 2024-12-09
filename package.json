@@ -6,12 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "sass scss/main.scss css/styles.css --style=compressed",
-    "watch-css": "sass --watch scss/main.scss css/styles.css"
+    "watch-css": "sass --watch scss/main.scss css/styles.css",
+    "watch": "live-server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "live-server": "^1.2.2",
     "sass": "^1.82.0"
   },
   "dependencies": {
