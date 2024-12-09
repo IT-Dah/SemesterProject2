@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Velorum</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">Velorum</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+      <h1 class="text-center">Register</h1>
+      <form class="mx-auto" style="max-width: 400px">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" required />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="email" required />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            minlength="8"
+            required />
+        </div>
+        <div class="mb-3">
+          <label for="confirm-password" class="form-label"
+            >Confirm Password</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="confirm-password"
+            minlength="8"
+            required />
+        </div>
+        <div class="mb-3">
+          <label for="profile-image" class="form-label">Profile Image</label>
+          <input type="file" class="form-control" id="profile-image" required />
+        </div>
+        <button type="submit" class="btn btn-accent w-100">Register</button>
+      </form>
+    </main>
+
+    <footer class="text-center py-3">
+      © 2024 Velorum. All rights reserved.
+    </footer>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</html>
