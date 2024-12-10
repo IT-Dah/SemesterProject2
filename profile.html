@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - Velorum</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Velorum</h1>
+    </header>
+    <main class="container my-5">
+      <h2>Your Profile</h2>
+      <div id="profile-container"></div>
+      <section>
+        <h3>Update Profile</h3>
+        <form id="update-profile-form">
+          <div class="mb-3">
+            <label for="bio" class="form-label">Bio</label>
+            <textarea id="bio" class="form-control"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="avatar-url" class="form-label">Avatar URL</label>
+            <input type="url" id="avatar-url" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="banner-url" class="form-label">Banner URL</label>
+            <input type="url" id="banner-url" class="form-control" />
+          </div>
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2024 Velorum. All rights reserved.</p>
+    </footer>
+    <script type="module">
+      import { loadProfile, updateProfile } from "./js/components/profile.js";
+
+      const profileName = "yourProfileName"; // Replace with the actual profile name
+      loadProfile(profileName);
+
+      document
+        .getElementById("update-profile-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const bio = document.getElementById("bio").value;
+          const avatarUrl = document.getElementById("avatar-url").value;
+          const bannerUrl = document.getElementById("banner-url").value;
+
+          const data = {};
+          if (bio) data.bio = bio;
+          if (avatarUrl) data.avatar = { url: avatarUrl };
+          if (bannerUrl) data.banner = { url: bannerUrl };
+
+          updateProfile(profileName, data);
+        });
+    </script>
+  </body>
+</html>

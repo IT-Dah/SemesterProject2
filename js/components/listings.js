@@ -1,7 +1,23 @@
 import { fetchListings } from "../utils/api.js";
 
 /**
+ * Validates if a given URL is valid.
+ * @param {string} url - The URL to validate.
+ * @returns {boolean} - True if the URL is valid, false otherwise.
+ */
+function isValidUrl(url) {
+  try {
+    new URL(url);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
  * Create a card for a single listing.
+ * @param {object} listing - The listing data to display.
+ * @returns {HTMLElement} - The HTML card element for the listing.
  */
 export function createCard(listing) {
   const card = document.createElement("div");
@@ -12,11 +28,20 @@ export function createCard(listing) {
     ? `${Math.max(...listing.bids.map((bid) => bid.amount))} NOK`
     : "No bids yet";
   const endsAt = new Date(listing.endsAt).toLocaleString();
-  const imageUrl = listing.media?.[0] || "assets/images/default.svg";
+
+  // Validate media URL or use default image
+  const imageUrl =
+    listing.media?.[0] && isValidUrl(listing.media[0])
+      ? listing.media[0]
+      : "assets/images/default.svg";
 
   card.innerHTML = `
     <div class="card h-100 shadow-sm">
-      <img src="${imageUrl}" class="card-img-top" alt="${title}" onerror="this.src='assets/images/default.svg';">
+      <img 
+        src="${imageUrl}" 
+        class="card-img-top" 
+        alt="${title}" 
+        onerror="this.src='assets/images/default.svg';"> <!-- Fallback on load error -->
       <div class="card-body text-center">
         <h5 class="card-title">${title}</h5>
         <p class="card-text"><strong>Current Bid:</strong> ${highestBid}</p>
@@ -30,7 +55,11 @@ export function createCard(listing) {
 }
 
 /**
- * Load and display listings.
+ * Load and display listings on the page.
+ * @param {number} limit - The number of listings to fetch.
+ * @param {number} page - The current page number to fetch.
+ * @param {string} sort - The field to sort by (e.g., "endsAt").
+ * @param {string} sortOrder - The order to sort in ("asc" or "desc").
  */
 export async function loadListings(
   limit = 12,
@@ -43,7 +72,7 @@ export async function loadListings(
 
   try {
     const listings = await fetchListings(limit, page, sort, sortOrder);
-    console.log("Listings fetched:", listings); // Log to confirm the array of listings
+    console.log("Listings fetched:", listings); // Debug log
 
     cardContainer.innerHTML = ""; // Clear placeholder
 
@@ -66,7 +95,7 @@ export async function loadListings(
 }
 
 /**
- * Setup pagination functionality.
+ * Setup pagination functionality for the listings.
  */
 export function setupPagination() {
   const nextPageBtn = document.getElementById("next-page");
@@ -75,14 +104,14 @@ export function setupPagination() {
 
   nextPageBtn.addEventListener("click", () => {
     currentPage++;
-    loadListings(12, currentPage);
+    loadListings(12, currentPage); // Fetch 12 listings per page
     prevPageBtn.disabled = false;
   });
 
   prevPageBtn.addEventListener("click", () => {
     if (currentPage > 1) {
       currentPage--;
-      loadListings(12, currentPage);
+      loadListings(12, currentPage); // Fetch 12 listings per page
     }
     if (currentPage === 1) {
       prevPageBtn.disabled = true;
