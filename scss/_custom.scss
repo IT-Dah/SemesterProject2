@@ -1,42 +1,11 @@
-@use "./variables"; // Import variables
-
-// General Styles
-body {
-  font-family: variables.$font-body;
-  background-color: variables.$background;
-  color: variables.$neutral;
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-
-  // Tablet responsiveness
-  @media (max-width: 1024px) {
-    padding: 0 16px;
-  }
-
-  // Mobile responsiveness
-  @media (max-width: 768px) {
-    padding: 0 12px;
-  }
-}
-
-// Card Container
-#card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-
-  .card {
-    flex: 1 1 calc(33.333% - 24px); // Three cards per row on large screens
-
-    @media (max-width: 1024px) {
-      flex: 1 1 calc(50% - 24px); // Two cards per row on tablets
-    }
-
-    @media (max-width: 768px) {
-      flex: 1 1 100%; // Single column layout on mobile
-    }
-  }
+.card:hover {
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  transition: 0.3s ease;
 }

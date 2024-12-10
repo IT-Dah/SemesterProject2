@@ -1,0 +1,27 @@
+@use "./variables";
+
+footer {
+  background-color: variables.$primary;
+  color: variables.$secondary;
+  font-family: variables.$font-body;
+  text-align: center;
+  padding: 16px; // Add space inside the footer
+  font-size: 14px;
+
+  // Link styling
+  a {
+    color: variables.$accent;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: lighten(variables.$accent, 10%); // Slightly lighter on hover
+    }
+  }
+
+  // Footer responsiveness
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 12px;
+  }
+}

@@ -1,18 +1,8 @@
-const API_BASE_URL = "https://v2.api.noroff.dev/";
+export const API_BASE_URL = "https://v2.api.noroff.dev/";
 
-export async function fetchFromApi(endpoint, options = {}) {
-  const url = `${API_BASE_URL}${endpoint}`;
-  try {
-    const response = await fetch(url, options);
-    if (!response.ok)
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    return await response.json();
-  } catch (error) {
-    console.error("API error:", error.message);
-    return null;
-  }
-}
-
+/**
+ * Fetch data from the API.
+ */
 export async function fetchListings(
   limit = 10,
   page = 1,
@@ -20,5 +10,15 @@ export async function fetchListings(
   sortOrder = "asc"
 ) {
   const endpoint = `auction/listings?limit=${limit}&page=${page}&sort=${sort}&sortOrder=${sortOrder}`;
-  return await fetchFromApi(endpoint);
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`);
+    console.log("Fetching from API:", `${API_BASE_URL}${endpoint}`); // Debug log
+    if (!response.ok) throw new Error(`API Error: ${response.statusText}`);
+    const data = await response.json();
+    console.log("API Response:", data); // Log the raw API response
+    return data.data || []; // Extract only the `data` property
+  } catch (error) {
+    console.error("Error fetching from API:", error);
+    return [];
+  }
 }

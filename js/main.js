@@ -1,13 +1,6 @@
-import {
-  loadListings,
-  setupPagination,
-  setupSorting,
-} from "./components/listings.js";
-import { registerUser } from "./components/register.js";
-import { loginUser } from "./components/auth.js";
+import { loadListings, setupPagination } from "./components/listings.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadListings(); // Load listings on page load
+  loadListings();
   setupPagination();
-  setupSorting();
 });

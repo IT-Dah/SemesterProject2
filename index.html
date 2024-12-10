@@ -10,10 +10,7 @@
     <header role="banner">
       <h1>Velorum</h1>
       <div class="menu-icon">
-        <button
-          class="btn btn-outline-light"
-          aria-label="Open navigation menu"
-          aria-expanded="false">
+        <button class="btn btn-outline-light" aria-label="Open navigation menu">
           <i class="fas fa-bars"></i>
         </button>
       </div>
@@ -25,8 +22,30 @@
         items today!
       </p>
 
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <input
+          type="search"
+          id="search-bar"
+          class="form-control w-25"
+          placeholder="Search" />
+        <select id="sort-options" class="form-select w-auto">
+          <option value="endsAt|asc">End Date (Ascending)</option>
+          <option value="endsAt|desc">End Date (Descending)</option>
+          <option value="price|asc">Price (Low to High)</option>
+          <option value="price|desc">Price (High to Low)</option>
+        </select>
+      </div>
+
       <!-- Card container with aria-live -->
       <div id="card-container" class="row" aria-live="polite"></div>
+
+      <!-- Pagination controls -->
+      <div class="d-flex justify-content-between align-items-center mt-4">
+        <button id="prev-page" class="btn btn-secondary" disabled>
+          Previous
+        </button>
+        <button id="next-page" class="btn btn-secondary">Next</button>
+      </div>
     </main>
     <footer role="contentinfo" class="footer">
       <p>&copy; 2024 Velorum. All rights reserved.</p>
