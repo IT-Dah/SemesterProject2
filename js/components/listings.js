@@ -29,10 +29,10 @@ export function createCard(listing) {
     : "No bids yet";
   const endsAt = new Date(listing.endsAt).toLocaleString();
 
-  // Validate media URL or use default image
+  // Media fallback: Check for media URL validity
   const imageUrl =
-    listing.media?.[0] && isValidUrl(listing.media[0])
-      ? listing.media[0]
+    listing.media?.length > 0 && isValidUrl(listing.media[0].url)
+      ? listing.media[0].url
       : "assets/images/default.svg";
 
   card.innerHTML = `
@@ -40,8 +40,8 @@ export function createCard(listing) {
       <img 
         src="${imageUrl}" 
         class="card-img-top" 
-        alt="${title}" 
-        onerror="this.src='assets/images/default.svg';"> <!-- Fallback on load error -->
+        alt="${listing.media?.[0]?.alt || title}" 
+        onerror="this.src='assets/images/default.svg';">
       <div class="card-body text-center">
         <h5 class="card-title">${title}</h5>
         <p class="card-text"><strong>Current Bid:</strong> ${highestBid}</p>
@@ -71,8 +71,15 @@ export async function loadListings(
   cardContainer.innerHTML = "<p>Loading listings...</p>";
 
   try {
-    const listings = await fetchListings(limit, page, sort, sortOrder);
-    console.log("Listings fetched:", listings); // Debug log
+    // Fetch listings with enriched data (_bids and _seller included)
+    const listings = await fetchListings(
+      limit,
+      page,
+      sort,
+      sortOrder,
+      "_bids=true&_seller=true"
+    );
+    console.log("Listings fetched:", listings);
 
     cardContainer.innerHTML = ""; // Clear placeholder
 
@@ -84,6 +91,7 @@ export async function loadListings(
     }
 
     listings.forEach((listing) => {
+      console.log("Media for listing:", listing.media); // Debug log for media
       const card = createCard(listing);
       cardContainer.appendChild(card);
     });
