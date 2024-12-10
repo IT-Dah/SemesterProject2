@@ -7,24 +7,39 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
       <div class="container">
         <a class="navbar-brand" href="#">Velorum</a>
       </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="container my-5">
+    <main class="container my-5" role="main">
       <h1 class="text-center">Register</h1>
-      <form class="mx-auto" style="max-width: 400px">
+      <form
+        class="needs-validation mx-auto"
+        style="max-width: 400px"
+        novalidate>
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" id="username" required />
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            aria-label="Enter your username"
+            required />
+          <div class="invalid-feedback">Username is required.</div>
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>
-          <input type="email" class="form-control" id="email" required />
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            aria-label="Enter your email address"
+            required />
+          <div class="invalid-feedback">
+            Please enter a valid email address.
+          </div>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
@@ -33,7 +48,11 @@
             class="form-control"
             id="password"
             minlength="8"
+            aria-label="Enter a password with at least 8 characters"
             required />
+          <div class="invalid-feedback">
+            Password must be at least 8 characters long.
+          </div>
         </div>
         <div class="mb-3">
           <label for="confirm-password" class="form-label"
@@ -44,19 +63,36 @@
             class="form-control"
             id="confirm-password"
             minlength="8"
+            aria-label="Re-enter your password to confirm"
             required />
+          <div class="invalid-feedback">Passwords must match.</div>
         </div>
         <div class="mb-3">
           <label for="profile-image" class="form-label">Profile Image</label>
-          <input type="file" class="form-control" id="profile-image" required />
+          <input
+            type="file"
+            class="form-control"
+            id="profile-image"
+            aria-label="Upload your profile image"
+            required />
         </div>
-        <button type="submit" class="btn btn-accent w-100">Register</button>
+        <button
+          type="submit"
+          class="btn btn-accent w-100"
+          aria-label="Register an account">
+          Register
+        </button>
+        <p class="text-center mt-3">
+          Already have an account? <a href="login.html">Log in here</a>.
+        </p>
       </form>
     </main>
 
-    <footer class="text-center py-3">
-      © 2024 Velorum. All rights reserved.
+    <footer role="contentinfo" class="text-center py-3">
+      &copy; 2024 Velorum. All rights reserved.
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/register.js"></script>
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </html>

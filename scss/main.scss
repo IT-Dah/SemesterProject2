@@ -1,3 +1,4 @@
 @use "./variables";
-@use "../node_modules/bootstrap/scss/bootstrap";
-@use "./custom";
+@use "./mixins";
+@use "./header";
+@use "./footer";

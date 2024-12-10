@@ -1,0 +1,62 @@
+@use "./variables"; // Import variables
+
+// Header Styling
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 32px;
+  gap: 124px;
+  background: variables.$primary; // Navy Blue
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  h1 {
+    color: variables.$secondary; // Light Beige
+    font-family: variables.$font-heading;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0; // Removes any default margin
+  }
+
+  .menu-icon {
+    margin-left: auto;
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        color: variables.$accent; // Teal Green on hover
+      }
+
+      &:focus {
+        outline: 2px solid variables.$secondary; // Visible focus state
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  // Tablet responsiveness
+  @media (max-width: 1024px) {
+    padding: 16px 24px;
+    gap: 40px;
+
+    h1 {
+      font-size: 28px; // Adjust font size for tablet screens
+    }
+  }
+
+  // Mobile responsiveness
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+
+    h1 {
+      font-size: 24px; // Smaller font for mobile screens
+    }
+  }
+}

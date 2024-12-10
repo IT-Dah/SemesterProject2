@@ -7,26 +7,28 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <header>
+    <header role="banner">
       <h1>Velorum</h1>
       <div class="menu-icon">
-        <button class="btn btn-outline-light">
+        <button
+          class="btn btn-outline-light"
+          aria-label="Open navigation menu"
+          aria-expanded="false">
           <i class="fas fa-bars"></i>
-          <!-- Example menu icon -->
         </button>
       </div>
     </header>
-    <main class="container my-5">
+    <main class="container my-5" role="main">
       <h2>Welcome to Velorum</h2>
       <p>
         The premier destination for online auctions. Bid, buy, and sell amazing
         items today!
       </p>
 
-      <!-- Card container -->
-      <div id="card-container" class="row"></div>
+      <!-- Card container with aria-live -->
+      <div id="card-container" class="row" aria-live="polite"></div>
     </main>
-    <footer class="footer">
+    <footer role="contentinfo" class="footer">
       <p>&copy; 2024 Velorum. All rights reserved.</p>
     </footer>
 

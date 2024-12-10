@@ -7,55 +7,36 @@ body {
   color: variables.$neutral;
 }
 
-// Header Styling
-header {
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  // Tablet responsiveness
+  @media (max-width: 1024px) {
+    padding: 0 16px;
+  }
+
+  // Mobile responsiveness
+  @media (max-width: 768px) {
+    padding: 0 12px;
+  }
+}
+
+// Card Container
+#card-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 32px;
-  gap: 124px;
-  background: variables.$primary; // Navy Blue
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  flex-wrap: wrap;
+  gap: 24px;
 
-  h1 {
-    color: variables.$secondary; // Light Beige
-    font-family: variables.$font-heading;
-    font-size: 36px;
-    font-weight: 400;
-    line-height: normal;
-    margin: 0; // Removes any default margin
-  }
+  .card {
+    flex: 1 1 calc(33.333% - 24px); // Three cards per row on large screens
 
-  .menu-icon {
-    margin-left: auto; // Aligns menu icon to the far right
-  }
-}
+    @media (max-width: 1024px) {
+      flex: 1 1 calc(50% - 24px); // Two cards per row on tablets
+    }
 
-// Buttons
-.btn-primary {
-  background-color: variables.$blue-button;
-  border-color: variables.$blue-button;
-
-  &:hover {
-    background-color: darken(variables.$blue-button, 10%);
-  }
-}
-
-.btn-secondary {
-  background-color: variables.$accent;
-  border-color: variables.$accent;
-
-  &:hover {
-    background-color: variables.$hover-green;
-  }
-}
-
-// Responsive header
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
+    @media (max-width: 768px) {
+      flex: 1 1 100%; // Single column layout on mobile
+    }
   }
 }
