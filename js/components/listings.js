@@ -21,7 +21,7 @@ function isValidUrl(url) {
  */
 export function createCard(listing) {
   const card = document.createElement("div");
-  card.className = "col-lg-2 col-md-3 col-sm-6 mb-4";
+  card.className = "col-lg-3 col-md-4 col-sm-6 mb-4";
 
   const title = listing.title || "Untitled";
   const highestBid = listing.bids?.length
