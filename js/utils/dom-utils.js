@@ -1,23 +1,42 @@
 /**
- * Setup a responsive navigation menu toggle for mobile view.
+ * Initializes a responsive navigation menu with toggle functionality.
+ * @param {string} menuButtonSelector - Selector for the menu toggle button.
+ * @param {string} navbarMenuSelector - Selector for the navbar menu.
  */
-export function setupResponsiveNavbar() {
-  const menuToggle = document.querySelector(".menu-icon button");
-  const navbarMenu = document.querySelector(".navbar-menu");
+export function setupResponsiveNavbar(
+  menuButtonSelector = ".menu-icon button",
+  navbarMenuSelector = ".navbar-menu"
+) {
+  const menuButton = document.querySelector(menuButtonSelector);
+  const navbarMenu = document.querySelector(navbarMenuSelector);
 
-  menuToggle.addEventListener("click", () => {
-    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
-    menuToggle.setAttribute("aria-expanded", !isExpanded);
+  if (!menuButton || !navbarMenu) {
+    console.error("Menu button or navbar menu not found!");
+    return;
+  }
+
+  // Toggle menu visibility
+  menuButton.addEventListener("click", () => {
+    const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", !isExpanded);
     navbarMenu.classList.toggle("show");
   });
 
-  // Close the menu when clicking outside
+  // Hide menu when clicking outside
   document.addEventListener("click", (event) => {
     if (
       !navbarMenu.contains(event.target) &&
-      !menuToggle.contains(event.target)
+      !menuButton.contains(event.target)
     ) {
-      menuToggle.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-expanded", "false");
+      navbarMenu.classList.remove("show");
+    }
+  });
+
+  // Ensure proper state on window resize (e.g., removing `show` for larger screens)
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      menuButton.setAttribute("aria-expanded", "false");
       navbarMenu.classList.remove("show");
     }
   });

@@ -1,27 +1,24 @@
-@use "./variables";
+@use "./variables" as vars;
+@use "sass:color"; // Import the color module for color.adjust()
 
-footer {
-  background-color: variables.$primary;
-  color: variables.$secondary;
-  font-family: variables.$font-body;
-  text-align: center;
-  padding: 16px; // Add space inside the footer
-  font-size: 14px;
+@mixin footer {
+  footer {
+    background-color: vars.$primary;
+    color: vars.$secondary;
+    text-align: center;
+    padding: vars.$spacing-sm;
+    font-size: 0.875rem;
 
-  // Link styling
-  a {
-    color: variables.$accent;
-    text-decoration: none;
-    transition: color 0.3s ease;
+    a {
+      color: vars.$accent;
+      text-decoration: none;
 
-    &:hover {
-      color: lighten(variables.$accent, 10%); // Slightly lighter on hover
+      &:hover {
+        color: color.adjust(
+          vars.$accent,
+          $lightness: 10%
+        ); // Use color.adjust instead of lighten
+      }
     }
-  }
-
-  // Footer responsiveness
-  @media (max-width: 768px) {
-    font-size: 12px;
-    padding: 12px;
   }
 }

@@ -1,87 +1,55 @@
-@use "./variables";
+@use "./variables" as vars;
 
-.card {
-  border: none;
-  border-radius: variables.$border-radius; // Use your defined border-radius variable
-  overflow: hidden;
-  box-shadow: variables.$shadow-md; // Use your defined shadow variable
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: variables.$shadow-lg; // Add a larger shadow on hover
-  }
-
-  .card-img-top {
-    object-fit: cover;
-    height: 200px; // Slightly larger for a better view
-    width: 100%; // Ensure it spans the full card width
-  }
-
-  .card-body {
-    text-align: center; // Center-align content inside the card
-    padding: variables.$spacing-md; // Use consistent spacing
-  }
-
-  .btn {
-    border-radius: variables.$border-radius; // Use consistent border radius
-    padding: variables.$spacing-sm variables.$spacing-lg; // Adjust padding for consistency
-    background-color: variables.$blue-button; // Use button color from variables
-    color: variables.$secondary; // Ensure good contrast
+@mixin custom {
+  .card {
+    border: none;
+    border-radius: vars.$border-radius;
+    overflow: hidden;
+    box-shadow: vars.$shadow-md;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
-      background-color: variables.$button-hover-blue; // Hover effect
+      transform: translateY(-5px);
+      box-shadow: vars.$shadow-lg;
     }
+
+    .card-img-top {
+      object-fit: cover;
+      height: 200px;
+      width: 100%;
+    }
+
+    .card-body {
+      text-align: center;
+      padding: vars.$spacing-md;
+
+      .btn {
+        border-radius: vars.$border-radius;
+        padding: vars.$spacing-sm vars.$spacing-lg;
+        background-color: vars.$blue-button;
+        color: vars.$secondary;
+
+        &:hover {
+          background-color: vars.$button-hover-blue;
+        }
+
+        &:focus {
+          outline: 2px solid vars.$accent;
+          outline-offset: 2px;
+        }
+      }
+    }
+  }
+
+  .form-control {
+    border-radius: vars.$border-radius;
+    border: 1px solid vars.$neutral;
+    padding: vars.$spacing-sm;
 
     &:focus {
-      outline: 2px solid variables.$accent; // Add focus state for accessibility
-      outline-offset: 2px;
-    }
-  }
-}
-
-.form-control {
-  border-radius: variables.$border-radius;
-  border: 1px solid variables.$neutral; // Add a subtle border for contrast
-  padding: variables.$spacing-sm;
-
-  &:focus {
-    border-color: variables.$accent;
-    box-shadow: 0 0 5px variables.$accent; // Highlight on focus
-    outline: none;
-  }
-}
-
-.btn-primary {
-  background-color: variables.$blue-button;
-  color: variables.$secondary; // Ensure text is legible
-
-  &:hover {
-    background-color: variables.$button-hover-blue;
-  }
-
-  &:focus {
-    outline: 2px solid variables.$accent;
-    outline-offset: 2px;
-  }
-}
-
-.navbar {
-  background-color: variables.$primary;
-  box-shadow: variables.$shadow-sm; // Add subtle shadow
-
-  .nav-link {
-    color: variables.$secondary;
-    text-decoration: none;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: variables.$accent; // Highlight on hover
-    }
-
-    &:focus {
-      outline: 2px solid variables.$accent; // Focus state for accessibility
-      outline-offset: 2px;
+      border-color: vars.$accent;
+      box-shadow: 0 0 5px vars.$accent;
+      outline: none;
     }
   }
 }

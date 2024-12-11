@@ -9,7 +9,7 @@ function isValidUrl(url) {
   try {
     new URL(url);
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -31,8 +31,8 @@ export function createCard(listing) {
 
   // Media fallback: Check for media URL validity
   const imageUrl =
-    listing.media?.length > 0 && isValidUrl(listing.media[0].url)
-      ? listing.media[0].url
+    listing.media?.length > 0 && isValidUrl(listing.media[0])
+      ? listing.media[0]
       : "assets/images/default.svg";
 
   card.innerHTML = `
@@ -40,13 +40,13 @@ export function createCard(listing) {
       <img 
         src="${imageUrl}" 
         class="card-img-top" 
-        alt="${listing.media?.[0]?.alt || title}" 
+        alt="${title}" 
         onerror="this.src='assets/images/default.svg';">
       <div class="card-body text-center">
         <h5 class="card-title">${title}</h5>
         <p class="card-text"><strong>Current Bid:</strong> ${highestBid}</p>
-        <p class="card-text"><small>${endsAt}</small></p>
-        <button class="btn btn-primary w-100">Bid</button>
+        <p class="card-text"><small><strong>Ends At:</strong> ${endsAt}</small></p>
+        <a href="details.html?id=${listing.id}" class="btn btn-primary w-100">View Details</a>
       </div>
     </div>
   `;
@@ -81,7 +81,8 @@ export async function loadListings(
     );
     console.log("Listings fetched:", listings);
 
-    cardContainer.innerHTML = ""; // Clear placeholder
+    // Clear the container before appending new cards
+    cardContainer.innerHTML = "";
 
     if (!Array.isArray(listings)) {
       console.error("API response is not an array:", listings);
@@ -90,8 +91,12 @@ export async function loadListings(
       return;
     }
 
+    if (listings.length === 0) {
+      cardContainer.innerHTML = "<p>No listings available.</p>";
+      return;
+    }
+
     listings.forEach((listing) => {
-      console.log("Media for listing:", listing.media); // Debug log for media
       const card = createCard(listing);
       cardContainer.appendChild(card);
     });
@@ -102,6 +107,9 @@ export async function loadListings(
   }
 }
 
+/**
+ * Setup pagination for the listings.
+ */
 export function setupPagination() {
   const nextPageBtn = document.getElementById("next-page");
   const prevPageBtn = document.getElementById("prev-page");
@@ -111,6 +119,9 @@ export function setupPagination() {
     console.error("Pagination buttons not found in the DOM.");
     return;
   }
+
+  // Initial button state
+  prevPageBtn.disabled = currentPage === 1;
 
   nextPageBtn.addEventListener("click", () => {
     currentPage++;
@@ -123,8 +134,16 @@ export function setupPagination() {
       currentPage--;
       loadListings(12, currentPage); // Fetch 12 listings per page
     }
-    if (currentPage === 1) {
-      prevPageBtn.disabled = true; // Disable the previous button
-    }
+    prevPageBtn.disabled = currentPage === 1; // Disable the previous button if on page 1
+  });
+}
+
+/**
+ * Initialize the listings page.
+ */
+export function initializeListings() {
+  document.addEventListener("DOMContentLoaded", () => {
+    loadListings();
+    setupPagination();
   });
 }

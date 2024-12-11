@@ -1,4 +1,4 @@
-import { fetchFromApi } from "./utils/api.js";
+import { fetchFromApi } from "../utils/api.js";
 
 /**
  * Fetch and display listing details.
@@ -8,7 +8,8 @@ async function loadListingDetails() {
   const listingId = new URLSearchParams(window.location.search).get("id"); // Get `id` from URL
 
   if (!listingId) {
-    listingContainer.innerHTML = "<p>Invalid listing. No ID provided.</p>";
+    listingContainer.innerHTML =
+      "<p class='error-message'>Invalid listing. No ID provided.</p>";
     return;
   }
 
@@ -18,19 +19,18 @@ async function loadListingDetails() {
     );
     console.log("Listing details:", listing);
 
-    // Build the HTML for the listing
+    // Destructure response data
     const { title, description, media, endsAt, bids } = listing;
-    const imageUrl = media?.[0]?.url || "assets/images/default.svg";
+    const imageUrl = media?.[0] || "assets/images/default.svg";
 
-    let bidsHtml = "";
-    if (bids?.length > 0) {
-      bidsHtml = bids
-        .map((bid) => `<li>${bid.bidder.name} bid ${bid.amount} NOK</li>`)
-        .join("");
-    } else {
-      bidsHtml = "<li>No bids yet.</li>";
-    }
+    // Generate bids HTML
+    const bidsHtml = bids?.length
+      ? bids
+          .map((bid) => `<li>${bid.bidder.name} bid ${bid.amount} NOK</li>`)
+          .join("")
+      : "<li>No bids yet.</li>";
 
+    // Build the listing HTML
     listingContainer.innerHTML = `
       <div class="card">
         <img src="${imageUrl}" alt="${title}" class="card-img-top">
@@ -48,7 +48,7 @@ async function loadListingDetails() {
   } catch (error) {
     console.error("Error loading listing details:", error);
     listingContainer.innerHTML =
-      "<p>Failed to load listing. Please try again later.</p>";
+      "<p class='error-message'>Failed to load listing. Please try again later.</p>";
   }
 }
 
@@ -57,11 +57,17 @@ async function loadListingDetails() {
  */
 async function handleBid(event) {
   event.preventDefault();
-  const bidAmount = document.getElementById("bid-amount").value;
+  const bidAmountInput = document.getElementById("bid-amount");
+  const bidAmount = parseInt(bidAmountInput.value, 10);
   const listingId = new URLSearchParams(window.location.search).get("id");
 
-  if (!bidAmount || !listingId) {
-    alert("Invalid bid or listing ID.");
+  if (!bidAmount || isNaN(bidAmount) || bidAmount <= 0) {
+    alert("Please enter a valid bid amount.");
+    return;
+  }
+
+  if (!listingId) {
+    alert("Invalid listing ID.");
     return;
   }
 
@@ -69,11 +75,12 @@ async function handleBid(event) {
     const response = await fetchFromApi(`auction/listings/${listingId}/bids`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: parseInt(bidAmount, 10) }),
+      body: JSON.stringify({ amount: bidAmount }),
     });
 
     if (response) {
       alert("Bid placed successfully!");
+      bidAmountInput.value = ""; // Clear the input field
       loadListingDetails(); // Reload listing details to update bids
     } else {
       alert("Failed to place bid. Please try again.");
@@ -89,5 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadListingDetails();
 
   const bidForm = document.getElementById("bid-form");
-  bidForm.addEventListener("submit", handleBid);
+  if (bidForm) {
+    bidForm.addEventListener("submit", handleBid);
+  }
 });

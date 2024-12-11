@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Browse all listings available for bidding on Velorum, the premier auction platform." />
+    <title>Listings - Velorum</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-<HASH>"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <header class="header" role="banner">
+      <div class="container">
+        <a href="index.html" class="logo" aria-label="Velorum Home">Velorum</a>
+        <div class="menu-icon">
+          <button aria-label="Toggle navigation menu" aria-expanded="false">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+          </button>
+        </div>
+        <nav class="navbar-menu">
+          <ul>
+            <li>
+              <a href="index.html"
+                ><i class="fas fa-home" aria-hidden="true"></i> Home</a
+              >
+            </li>
+            <li>
+              <a href="listings.html" class="active"
+                ><i class="fas fa-gavel" aria-hidden="true"></i> View
+                Listings</a
+              >
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fas fa-bell" aria-hidden="true"></i> Notifications</a
+              >
+            </li>
+            <li>
+              <a href="profile.html"
+                ><i class="fas fa-user" aria-hidden="true"></i> Profile</a
+              >
+            </li>
+            <li>
+              <a href="#" id="sign-out"
+                ><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sign
+                Out</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main class="container my-5" role="main">
+      <section aria-labelledby="listings-heading">
+        <h1 id="listings-heading">Browse Listings</h1>
+        <p>Explore all available listings and place your bids.</p>
+
+        <!-- Filter and Sort Options -->
+        <div
+          class="filter-sort mb-4 d-flex justify-content-between align-items-center">
+          <div class="filters">
+            <label for="search" class="form-label">Search Listings:</label>
+            <input
+              type="text"
+              id="search"
+              class="form-control"
+              placeholder="Search by title or description"
+              aria-label="Search Listings" />
+          </div>
+          <div class="sort-options">
+            <label for="sort" class="form-label">Sort By:</label>
+            <select id="sort" class="form-select" aria-label="Sort Listings">
+              <option value="endsAt" selected>Ending Soon</option>
+              <option value="startsAt">Newest</option>
+              <option value="highestBid">Highest Bid</option>
+              <option value="lowestBid">Lowest Bid</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Listings Container -->
+        <div id="card-container" class="row" aria-live="polite">
+          <!-- Cards will be dynamically injected here -->
+        </div>
+
+        <!-- Pagination Buttons -->
+        <nav
+          class="pagination mt-4 d-flex justify-content-between"
+          aria-label="Pagination">
+          <button id="prev-page" class="btn btn-primary" disabled>
+            Previous
+          </button>
+          <button id="next-page" class="btn btn-primary">Next</button>
+        </nav>
+      </section>
+    </main>
+    <footer role="contentinfo" class="footer">
+      <div class="container">
+        <p>&copy; 2024 Velorum. All rights reserved.</p>
+        <nav>
+          <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+    <script type="module" src="js/listings.js"></script>
+    <script type="module" src="js/menu.js"></script>
+  </body>
+</html>

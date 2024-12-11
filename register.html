@@ -3,96 +3,152 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Create your Velorum account to start bidding and managing auctions today!" />
     <title>Register - Velorum</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-<HASH>"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
+    <!-- Header with hamburger menu -->
+    <header role="banner" class="header">
       <div class="container">
-        <a class="navbar-brand" href="#">Velorum</a>
+        <a href="index.html" class="logo" aria-label="Velorum Home">Velorum</a>
+        <div class="menu-icon">
+          <button aria-label="Toggle navigation menu" aria-expanded="false">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+          </button>
+        </div>
+        <nav class="navbar-menu">
+          <ul>
+            <li>
+              <a href="index.html"
+                ><i class="fas fa-home" aria-hidden="true"></i> Home</a
+              >
+            </li>
+            <li>
+              <a href="listings.html"
+                ><i class="fas fa-gavel" aria-hidden="true"></i> View
+                Listings</a
+              >
+            </li>
+            <li>
+              <a href="profile.html"
+                ><i class="fas fa-user" aria-hidden="true"></i> Profile</a
+              >
+            </li>
+            <li>
+              <a href="login.html"
+                ><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Log In</a
+              >
+            </li>
+          </ul>
+        </nav>
       </div>
-    </nav>
+    </header>
 
+    <!-- Main Content -->
     <main class="container my-5" role="main">
-      <h1 class="text-center">Register</h1>
-      <form
-        class="needs-validation mx-auto"
-        style="max-width: 400px"
-        novalidate>
-        <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <input
-            type="text"
-            class="form-control"
-            id="username"
-            aria-label="Enter your username"
-            required />
-          <div class="invalid-feedback">Username is required.</div>
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email Address</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            aria-label="Enter your email address"
-            required />
-          <div class="invalid-feedback">
-            Please enter a valid email address.
+      <section aria-labelledby="register-heading" class="register-section">
+        <h1 id="register-heading" class="text-center">Create Your Account</h1>
+        <form
+          id="register-form"
+          class="needs-validation mx-auto"
+          style="max-width: 400px"
+          novalidate>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              placeholder="Enter your username"
+              required
+              aria-required="true"
+              aria-describedby="username-help" />
+            <small id="username-help" class="form-text"
+              >Choose a unique username.</small
+            >
+            <div class="invalid-feedback">Username is required.</div>
           </div>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            minlength="8"
-            aria-label="Enter a password with at least 8 characters"
-            required />
-          <div class="invalid-feedback">
-            Password must be at least 8 characters long.
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="example@stud.noroff.no"
+              required
+              aria-required="true" />
+            <div class="invalid-feedback">
+              Please enter a valid email address.
+            </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <label for="confirm-password" class="form-label"
-            >Confirm Password</label
-          >
-          <input
-            type="password"
-            class="form-control"
-            id="confirm-password"
-            minlength="8"
-            aria-label="Re-enter your password to confirm"
-            required />
-          <div class="invalid-feedback">Passwords must match.</div>
-        </div>
-        <div class="mb-3">
-          <label for="profile-image" class="form-label">Profile Image</label>
-          <input
-            type="file"
-            class="form-control"
-            id="profile-image"
-            aria-label="Upload your profile image"
-            required />
-        </div>
-        <button
-          type="submit"
-          class="btn btn-accent w-100"
-          aria-label="Register an account">
-          Register
-        </button>
-        <p class="text-center mt-3">
-          Already have an account? <a href="login.html">Log in here</a>.
-        </p>
-      </form>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="At least 8 characters"
+              minlength="8"
+              required
+              aria-required="true"
+              aria-describedby="password-help" />
+            <small id="password-help" class="form-text"
+              >Must be at least 8 characters long.</small
+            >
+            <div class="invalid-feedback">
+              Password must be at least 8 characters long.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="confirm-password" class="form-label"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="confirm-password"
+              placeholder="Re-enter your password"
+              minlength="8"
+              required
+              aria-required="true" />
+            <div class="invalid-feedback">Passwords must match.</div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+            aria-label="Register your account">
+            Register
+          </button>
+          <p class="text-center mt-3">
+            Already have an account? <a href="login.html">Log in here</a>.
+          </p>
+        </form>
+      </section>
     </main>
 
-    <footer role="contentinfo" class="text-center py-3">
-      &copy; 2024 Velorum. All rights reserved.
+    <footer role="contentinfo" class="footer text-center py-3">
+      <div class="container">
+        <p>&copy; 2024 Velorum. All rights reserved.</p>
+        <nav>
+          <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </nav>
+      </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="js/register.js"></script>
+    <!-- JavaScript Files -->
+    <script type="module" src="js/components/register.js"></script>
+    <script type="module" src="js/utils/menu.js"></script>
   </body>
 </html>

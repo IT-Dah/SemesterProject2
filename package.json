@@ -7,13 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "sass scss/main.scss css/styles.css --style=compressed",
     "watch-css": "sass --watch scss/main.scss css/styles.css",
-    "watch": "live-server"
+    "watch": "live-server --port=8080 --open=./index.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "live-server": "^1.2.2",
+    "live-server": "^1.2.0",
     "sass": "^1.82.0"
   },
   "dependencies": {

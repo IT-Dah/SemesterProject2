@@ -1,23 +1,38 @@
 // js/components/auth.js
 import { fetchFromApi } from "../utils/api.js";
 
+/**
+ * Logs in a user by sending credentials to the API.
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ */
 export async function loginUser(email, password) {
   try {
+    // Validate input before making the API call
+    if (!email || !password) {
+      alert("Email and password are required.");
+      return;
+    }
+
     const response = await fetchFromApi("auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
 
-    if (response) {
-      localStorage.setItem("accessToken", response.accessToken); // Save token
+    // Handle API response
+    if (response?.accessToken) {
+      localStorage.setItem("accessToken", response.accessToken); // Save token securely
       alert("Login successful!");
-      window.location.href = "profile.html"; // Redirect after login
+      window.location.href = "/src/profile/index.html"; // Redirect to the correct page
+    } else if (response?.message) {
+      // Handle API-specific error messages
+      alert(`Login failed: ${response.message}`);
     } else {
       alert("Login failed. Please try again.");
     }
   } catch (error) {
     console.error("Login Error:", error.message);
-    alert("An error occurred while logging in.");
+    alert("An unexpected error occurred. Please try again later.");
   }
 }
