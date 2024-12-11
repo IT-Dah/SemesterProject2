@@ -5,18 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Velorum</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" />
   </head>
   <body>
-    <header role="banner" class="navbar">
-      <h1>Velorum</h1>
+    <header role="banner">
+      <a href="index.html" class="logo">Velorum</a>
       <div class="menu-icon">
-        <button
-          class="btn btn-outline-light"
-          aria-label="Open navigation menu"
-          aria-expanded="false">
+        <button aria-label="Toggle menu" aria-expanded="false">
           <i class="fas fa-bars"></i>
         </button>
       </div>
+      <nav class="navbar-menu">
+        <ul>
+          <li>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+          </li>
+          <li>
+            <a href="listings.html"
+              ><i class="fas fa-gavel"></i> View Listings</a
+            >
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-bell"></i> Notifications</a>
+          </li>
+          <li>
+            <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+          </li>
+          <li>
+            <a href="#" id="sign-out"
+              ><i class="fas fa-sign-out-alt"></i> Sign Out</a
+            >
+          </li>
+        </ul>
+      </nav>
     </header>
     <main class="container my-5" role="main">
       <h2>Welcome to Velorum</h2>
@@ -24,15 +47,21 @@
         The premier destination for online auctions. Bid, buy, and sell amazing
         items today!
       </p>
-
-      <!-- Card container with aria-live -->
+      <!-- Card container -->
       <div id="card-container" class="row" aria-live="polite"></div>
+
+      <!-- Pagination buttons -->
+      <div class="pagination mt-4 d-flex justify-content-between">
+        <button id="prev-page" class="btn btn-primary" disabled>
+          Previous
+        </button>
+        <button id="next-page" class="btn btn-primary">Next</button>
+      </div>
     </main>
+
     <footer role="contentinfo" class="footer">
       <p>&copy; 2024 Velorum. All rights reserved.</p>
     </footer>
-
-    <!-- JavaScript Files -->
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

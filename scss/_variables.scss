@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Typography
 $font-heading: "Playfair Display", serif;
 $font-body: "Roboto", sans-serif;
@@ -10,6 +12,12 @@ $neutral: #6b7280; // Cool Grey
 $background: #fafafa; // Soft White
 $hover-green: #1c6145; // Green Hover
 $blue-button: #3b539c; // Blue Button Default
+
+$primary-light: color.adjust($primary, $lightness: 10%);
+$primary-dark: color.adjust($primary, $lightness: -10%);
+$accent-light: color.adjust($accent, $lightness: 10%);
+$accent-dark: color.adjust($accent, $lightness: -10%);
+$button-hover-blue: color.adjust($blue-button, $lightness: -10%);
 
 // Spacing
 $spacing-xs: 4px;
@@ -32,9 +40,6 @@ $breakpoint-sm: 768px;
 $breakpoint-md: 1024px;
 $breakpoint-lg: 1200px;
 $breakpoint-xl: 1440px;
-
-// Button States
-$button-hover-blue: darken($blue-button, 10%);
 
 // Bootstrap overrides
 $body-bg: $background;

@@ -1,3 +1,5 @@
+@use "./variables";
+
 .card {
   border: none;
   border-radius: variables.$border-radius; // Use your defined border-radius variable

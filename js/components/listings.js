@@ -102,18 +102,20 @@ export async function loadListings(
   }
 }
 
-/**
- * Setup pagination functionality for the listings.
- */
 export function setupPagination() {
   const nextPageBtn = document.getElementById("next-page");
   const prevPageBtn = document.getElementById("prev-page");
   let currentPage = 1;
 
+  if (!nextPageBtn || !prevPageBtn) {
+    console.error("Pagination buttons not found in the DOM.");
+    return;
+  }
+
   nextPageBtn.addEventListener("click", () => {
     currentPage++;
     loadListings(12, currentPage); // Fetch 12 listings per page
-    prevPageBtn.disabled = false;
+    prevPageBtn.disabled = false; // Enable the previous button
   });
 
   prevPageBtn.addEventListener("click", () => {
@@ -122,7 +124,7 @@ export function setupPagination() {
       loadListings(12, currentPage); // Fetch 12 listings per page
     }
     if (currentPage === 1) {
-      prevPageBtn.disabled = true;
+      prevPageBtn.disabled = true; // Disable the previous button
     }
   });
 }

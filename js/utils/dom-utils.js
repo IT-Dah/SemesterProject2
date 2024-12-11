@@ -3,11 +3,22 @@
  */
 export function setupResponsiveNavbar() {
   const menuToggle = document.querySelector(".menu-icon button");
-  const navbar = document.querySelector(".navbar");
+  const navbarMenu = document.querySelector(".navbar-menu");
 
   menuToggle.addEventListener("click", () => {
     const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
     menuToggle.setAttribute("aria-expanded", !isExpanded);
-    navbar.classList.toggle("show");
+    navbarMenu.classList.toggle("show");
+  });
+
+  // Close the menu when clicking outside
+  document.addEventListener("click", (event) => {
+    if (
+      !navbarMenu.contains(event.target) &&
+      !menuToggle.contains(event.target)
+    ) {
+      menuToggle.setAttribute("aria-expanded", "false");
+      navbarMenu.classList.remove("show");
+    }
   });
 }
