@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listing Details - Velorum</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Velorum</h1>
+    </header>
+    <main class="container my-5">
+      <div id="listing-container">
+        <p>Loading listing...</p>
+      </div>
+      <section id="bid-section">
+        <h3>Place a Bid</h3>
+        <form id="bid-form">
+          <div class="mb-3">
+            <label for="bid-amount" class="form-label">Your Bid (NOK):</label>
+            <input
+              type="number"
+              id="bid-amount"
+              class="form-control"
+              placeholder="Enter your bid"
+              min="1"
+              required />
+          </div>
+          <button type="submit" class="btn btn-primary">Place Bid</button>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2024 Velorum. All rights reserved.</p>
+    </footer>
+    <script type="module" src="js/details.js"></script>
+  </body>
+</html>
