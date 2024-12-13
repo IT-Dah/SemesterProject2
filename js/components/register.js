@@ -9,7 +9,7 @@ async function handleRegistration(event) {
   event.preventDefault();
 
   // Get form inputs
-  const username = document.getElementById("username").value.trim();
+  const name = document.getElementById("username").value.trim(); // Updated to match API requirements
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirm-password").value;
@@ -27,26 +27,27 @@ async function handleRegistration(event) {
 
   // Construct registration data
   const registrationData = {
-    username,
+    name, // Updated to match the required field
     email,
     password,
   };
 
   try {
-    // Make API request to register the user
-    const response = await fetch(
-      "https://api.noroff.dev/auction/auth/register",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(registrationData),
-      }
-    );
+    // Correct API endpoint
+    const response = await fetch("https://v2.api.noroff.dev/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(registrationData),
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
       console.error("Registration error:", errorData);
-      alert(`Registration failed: ${errorData.message}`);
+
+      // Improved error handling with specific message
+      const errorMessage =
+        errorData.errors?.[0]?.message || "An unexpected error occurred.";
+      alert(`Registration failed: ${errorMessage}`);
       return;
     }
 
