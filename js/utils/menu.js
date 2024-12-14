@@ -1,6 +1,3 @@
-/**
- * Sets up the responsive navigation menu functionality.
- */
 export function setupResponsiveNavbar() {
   const menuButton = document.querySelector(".menu-icon button");
   const navbarMenu = document.querySelector(".navbar-menu");

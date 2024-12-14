@@ -1,14 +1,14 @@
 // All @use statements
 @use "variables";
-@use "base/resets";
-@use "layout/mixins";
-@use "layout/header";
-@use "layout/footer";
-@use "components/buttons";
-@use "components/cards";
-@use "components/modals";
-@use "pages/login";
-@use "pages/register";
-@use "pages/profile";
-@use "pages/listings";
-@use "pages/details";
+@use "base/resets"; // Contains resets and global utilities like .visually-hidden
+@use "layout/mixins"; // Mixins for reusable CSS patterns
+@use "layout/header"; // Header styles
+@use "layout/footer"; // Footer styles
+@use "components/buttons"; // Button styles
+@use "components/cards"; // Card styles for listings
+@use "components/modals"; // Modal styles
+@use "pages/login"; // Login page styles
+@use "pages/register"; // Registration page styles
+@use "pages/profile"; // Profile page styles
+@use "pages/listings"; // Listings page styles
+@use "pages/details"; // Listing details page styles

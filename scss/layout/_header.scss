@@ -1,14 +1,12 @@
-@use "../variables";
+@use "../variables"; // Import variables for consistent styling
 
 .header {
+  position: relative; /* Make the header a reference point for the menu */
   background-color: variables.$theme-primary;
   color: variables.$theme-secondary;
-  padding: 0.5rem 1rem; // Adjust padding for smaller screens
-  box-shadow: variables.$theme-shadow-md;
+  padding: 1rem;
 
   .container {
-    max-width: 1200px; // Ensure the header content stays centered
-    margin: 0 auto; // Center content horizontally
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,18 +15,11 @@
   .logo {
     font-family: variables.$theme-font-heading;
     font-size: 1.5rem;
-    font-weight: bold;
     color: variables.$theme-secondary;
     text-decoration: none;
-
-    &:hover {
-      color: variables.$theme-accent;
-    }
   }
 
   .menu-icon {
-    display: flex;
-
     button {
       background: none;
       border: none;
@@ -43,16 +34,18 @@
   }
 
   .navbar-menu {
-    display: none;
     position: absolute;
-    top: 100%;
+    top: 100%; /* Start just below the header */
+    left: 0;
     right: 0;
     background-color: variables.$theme-primary;
     box-shadow: variables.$theme-shadow-lg;
-    width: 100%;
-    max-width: 300px;
     padding: 1rem;
-    z-index: 1000; // Ensure it stays above other content
+    overflow: hidden;
+    max-height: 0; /* Hide menu initially */
+    transform: translateY(-10px); /* Slide-up effect initially */
+    opacity: 0; /* Make it invisible initially */
+    transition: max-height 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 
     ul {
       list-style: none;
@@ -63,20 +56,13 @@
         margin-bottom: 1rem;
 
         a {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
+          display: block;
           color: variables.$theme-secondary;
           text-decoration: none;
           font-family: variables.$theme-font-body;
-          font-size: 1rem;
 
           &:hover {
             color: variables.$theme-accent;
-          }
-
-          i {
-            font-size: 1.25rem;
           }
         }
       }
@@ -85,25 +71,27 @@
         margin-bottom: 0;
       }
     }
+
+    &.active {
+      max-height: 300px; /* Adjust this value based on menu content */
+      transform: translateY(0); /* Slide down */
+      opacity: 1; /* Make it visible */
+    }
   }
 
-  .navbar-menu.active {
-    display: block; // Show when toggled
-  }
-
-  // Larger screens: show the navbar menu inline
   @media (min-width: variables.$theme-breakpoint-md) {
     .menu-icon {
-      display: none;
+      display: none; /* Hide hamburger button on larger screens */
     }
 
     .navbar-menu {
       display: flex;
       position: static;
-      flex-direction: row;
-      background: none;
-      box-shadow: none;
+      transform: none;
+      opacity: 1;
+      max-height: none;
       padding: 0;
+      transition: none;
 
       ul {
         display: flex;
