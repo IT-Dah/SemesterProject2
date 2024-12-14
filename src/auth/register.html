@@ -21,6 +21,10 @@
 
     <!-- Main Content -->
     <main class="container my-5">
+      <!-- Feedback message -->
+      <div id="feedback-message" class="feedback"></div>
+
+      <!-- Registration Form -->
       <h1 class="text-center">Register</h1>
       <form id="register-form" class="register-form">
         <div class="form-group">
@@ -31,6 +35,7 @@
             name="username"
             class="form-control"
             placeholder="Enter username"
+            aria-label="Username"
             required />
         </div>
         <div class="form-group">
@@ -41,6 +46,7 @@
             name="email"
             class="form-control"
             placeholder="example@stud.noroff.no"
+            aria-label="Email Address"
             required />
         </div>
         <div class="form-group">
@@ -51,6 +57,7 @@
             name="password"
             class="form-control"
             placeholder="min. 8 characters"
+            aria-label="Password"
             required />
         </div>
         <div class="form-group">
@@ -60,6 +67,7 @@
             id="confirm-password"
             name="confirm-password"
             class="form-control"
+            aria-label="Confirm Password"
             required />
         </div>
         <div class="form-group">
@@ -69,7 +77,8 @@
             id="profile-image"
             name="profile-image"
             class="form-control"
-            accept="image/*" />
+            accept="image/*"
+            aria-label="Profile Image" />
         </div>
         <small class="text-muted">Required fields*</small>
         <div class="form-group">

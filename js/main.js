@@ -11,7 +11,10 @@ function showLoading(containerId) {
     console.error(`Container with ID '${containerId}' not found.`);
     return;
   }
-  container.innerHTML = '<div class="spinner">Loading...</div>';
+  container.innerHTML = `
+    <div class="spinner" role="status" aria-live="polite">
+      <span class="visually-hidden">Loading...</span>
+    </div>`;
 }
 
 /**
@@ -30,13 +33,14 @@ async function loadComponent(id, filePath) {
     const response = await fetch(filePath);
     if (!response.ok) {
       console.error(`Failed to load '${filePath}': ${response.statusText}`);
+      placeholder.innerHTML = `<p>Error loading component. Please try again later.</p>`;
       return;
     }
 
     const content = await response.text();
     placeholder.innerHTML = content;
 
-    // Setup the responsive navbar when the header is loaded
+    // Setup the responsive navbar after the header is loaded
     if (id === "header-placeholder") {
       setupResponsiveNavbar();
     }
@@ -50,7 +54,7 @@ async function loadComponent(id, filePath) {
  */
 async function initializeApp() {
   try {
-    // Load header and footer components
+    // Dynamically load header and footer for all pages
     await loadComponent(
       "header-placeholder",
       "../../src/components/header.html"
@@ -60,23 +64,31 @@ async function initializeApp() {
       "../../src/components/footer.html"
     );
 
-    // Show loading spinner in the card container
-    showLoading("card-container");
+    // Determine which page is being loaded based on the URL
+    const currentPage = window.location.pathname;
 
-    // Load and display listings
-    await loadListings(12, 1, "endsAt", "asc");
+    if (currentPage.includes("index.html") || currentPage === "/") {
+      // Index page logic: Show spinner, load listings, and setup pagination
+      showLoading("card-container");
+      await loadListings(12, 1, "endsAt", "asc");
 
-    // Remove spinner once listings are loaded
-    const spinner = document.querySelector(".spinner");
-    if (spinner) spinner.remove();
+      // Remove spinner after listings are loaded
+      const spinner = document.querySelector(".spinner");
+      if (spinner) spinner.remove();
 
-    // Setup pagination
-    setupPagination();
+      setupPagination();
+    } else if (currentPage.includes("register.html")) {
+      console.log("Initializing register page...");
+      // Add any register-specific initialization logic here
+    } else if (currentPage.includes("login.html")) {
+      console.log("Initializing login page...");
+      // Add any login-specific initialization logic here
+    }
   } catch (error) {
     console.error("Error initializing the application:", error);
-    alert("An error occurred while loading the page. Please try again.");
+    alert("An error occurred while loading the application. Please try again.");
   }
 }
 
-// Initialize the app after the DOM is fully loaded
+// Run the initialization after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initializeApp);

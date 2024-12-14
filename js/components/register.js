@@ -2,45 +2,62 @@ import { validateEmail, validatePasswords } from "../utils/form-validation.js";
 import { setupResponsiveNavbar } from "../utils/dom-utils.js";
 
 /**
+ * Displays feedback messages to the user.
+ * @param {string} message - The message to display.
+ * @param {boolean} isSuccess - Whether it's a success or error message.
+ */
+function displayAlert(message, isSuccess) {
+  const feedbackMessage = document.getElementById("feedback-message");
+  if (feedbackMessage) {
+    feedbackMessage.textContent = message;
+    feedbackMessage.className = `feedback ${isSuccess ? "success" : "error"}`;
+    feedbackMessage.style.display = "block";
+
+    // Auto-hide the message after 5 seconds
+    setTimeout(() => {
+      feedbackMessage.style.display = "none";
+    }, 5000);
+  } else {
+    alert(message); // Fallback alert
+  }
+}
+
+/**
  * Handles the registration form submission.
  * @param {Event} event - The form submission event.
  */
 async function handleRegistration(event) {
-  event.preventDefault();
+  event.preventDefault(); // Prevent form default submission
+  console.log("Form submission intercepted.");
 
   // Get form inputs
-  const name = document.getElementById("username")?.value.trim(); // Matches API requirements
+  const name = document.getElementById("username")?.value.trim();
   const email = document.getElementById("email")?.value.trim();
   const password = document.getElementById("password")?.value;
   const confirmPassword = document.getElementById("confirm-password")?.value;
 
-  // Basic input validation
+  // Validate inputs
   if (!name || name.length < 3) {
-    alert("Username must be at least 3 characters long.");
+    displayAlert("Username must be at least 3 characters long.", false);
     return;
   }
-
   if (!validateEmail(email)) {
-    alert("Please enter a valid email address ending with @stud.noroff.no.");
-    return;
-  }
-
-  if (!validatePasswords(password, confirmPassword)) {
-    alert(
-      "Passwords do not match or do not meet the required criteria (min. 8 characters)."
+    displayAlert(
+      "Please enter a valid email address ending with @stud.noroff.no.",
+      false
     );
     return;
   }
+  if (!validatePasswords(password, confirmPassword)) {
+    displayAlert("Passwords do not match or are invalid.", false);
+    return;
+  }
 
-  // Construct registration data
-  const registrationData = {
-    name, // Matches required API field
-    email,
-    password,
-  };
+  // Prepare registration data
+  const registrationData = { name, email, password };
+  console.log("Registration data:", registrationData);
 
   try {
-    // Correct API endpoint
     const response = await fetch("https://v2.api.noroff.dev/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -50,22 +67,21 @@ async function handleRegistration(event) {
     if (!response.ok) {
       const errorData = await response.json();
       console.error("Registration error:", errorData);
-
-      // Improved error handling with specific message
       const errorMessage =
-        errorData.errors?.[0]?.message ||
-        "An unexpected error occurred. Please try again.";
-      alert(`Registration failed: ${errorMessage}`);
+        errorData.errors?.[0]?.message || "An unexpected error occurred.";
+      displayAlert(`Registration failed: ${errorMessage}`, false);
       return;
     }
 
-    // On success
-    alert("Registration successful! Redirecting to login...");
-    window.location.href = "../auth/login.html"; // Updated path for redirect
+    displayAlert("Registration successful! Redirecting to login...", true);
+    setTimeout(() => {
+      window.location.href = "../auth/login.html";
+    }, 2000);
   } catch (error) {
     console.error("Error during registration:", error);
-    alert(
-      "An error occurred while registering. Please check your internet connection and try again."
+    displayAlert(
+      "An error occurred while registering. Please try again later.",
+      false
     );
   }
 }
@@ -74,7 +90,7 @@ async function handleRegistration(event) {
  * Initialize the registration page.
  */
 document.addEventListener("DOMContentLoaded", () => {
-  // Setup responsive navigation menu
+  console.log("Initializing register page...");
   setupResponsiveNavbar();
 
   const form = document.getElementById("register-form");
