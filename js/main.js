@@ -36,7 +36,6 @@ async function loadComponent(id, filePath) {
     const content = await response.text();
     placeholder.innerHTML = content;
 
-    // If the header is being loaded, set up the responsive navbar after it's in the DOM
     if (id === "header-placeholder") {
       setupResponsiveNavbar();
     }
@@ -50,27 +49,26 @@ async function loadComponent(id, filePath) {
  */
 async function initializeApp() {
   try {
-    // Load header and footer components
-    await loadComponent("header-placeholder", "../components/header.html");
-    await loadComponent("footer-placeholder", "../components/footer.html");
+    await loadComponent(
+      "header-placeholder",
+      "../../src/components/header.html"
+    );
+    await loadComponent(
+      "footer-placeholder",
+      "../../src/components/footer.html"
+    );
 
-    // Show loading spinner in the listings container
     showLoading("card-container");
 
-    // Load and display listings on page load
     await loadListings(12, 1, "endsAt", "asc");
 
-    // Remove spinner once listings are loaded
     const spinner = document.querySelector(".spinner");
     if (spinner) spinner.remove();
 
-    // Set up pagination for the listings
     setupPagination();
   } catch (error) {
     console.error("Error initializing the application:", error);
-    alert("An error occurred while loading the page. Please try again.");
   }
 }
 
-// Run the initialization after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initializeApp);
