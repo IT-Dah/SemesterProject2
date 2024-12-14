@@ -1,5 +1,4 @@
-// js/components/auth.js
-import { fetchFromApi } from "../utils/api.js";
+import { fetchFromApi } from "/js/utils/api.js";
 
 /**
  * Logs in a user by sending credentials to the API.
@@ -8,9 +7,8 @@ import { fetchFromApi } from "../utils/api.js";
  */
 export async function loginUser(email, password) {
   try {
-    // Validate input before making the API call
     if (!email || !password) {
-      alert("Email and password are required.");
+      alert("Both email and password are required.");
       return;
     }
 
@@ -20,19 +18,17 @@ export async function loginUser(email, password) {
       body: JSON.stringify({ email, password }),
     });
 
-    // Handle API response
     if (response?.accessToken) {
-      localStorage.setItem("accessToken", response.accessToken); // Save token securely
-      alert("Login successful!");
-      window.location.href = "/src/profile/index.html"; // Redirect to the correct page
+      localStorage.setItem("accessToken", response.accessToken);
+      alert("Login successful! Redirecting to your profile...");
+      window.location.href = "/src/profile/profile.html";
     } else if (response?.message) {
-      // Handle API-specific error messages
       alert(`Login failed: ${response.message}`);
     } else {
       alert("Login failed. Please try again.");
     }
   } catch (error) {
-    console.error("Login Error:", error.message);
-    alert("An unexpected error occurred. Please try again later.");
+    console.error("Login Error:", error);
+    alert("An error occurred during login. Please try again later.");
   }
 }

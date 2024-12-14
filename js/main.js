@@ -1,5 +1,6 @@
 import { loadListings, setupPagination } from "./components/listings.js";
 import { setupResponsiveNavbar } from "./utils/menu.js";
+import { loginUser } from "./components/auth.js"; // Import login logic if needed
 
 /**
  * Display a loading spinner in the specified container.
@@ -50,39 +51,106 @@ async function loadComponent(id, filePath) {
 }
 
 /**
+ * Initialize the index page.
+ */
+async function initializeIndexPage() {
+  try {
+    showLoading("card-container");
+    await loadListings(12, 1, "endsAt", "asc");
+
+    // Remove spinner after listings are loaded
+    const spinner = document.querySelector(".spinner");
+    if (spinner) spinner.remove();
+
+    setupPagination();
+  } catch (error) {
+    console.error("Error initializing index page:", error);
+    alert("Failed to load listings. Please refresh the page.");
+  }
+}
+
+/**
+ * Initialize the register page.
+ */
+async function initializeRegisterPage() {
+  console.log("Initializing register page...");
+  const form = document.getElementById("register-form");
+  if (form) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+
+      if (!username || !email || !password || password !== confirmPassword) {
+        alert("Please fill in all fields and ensure passwords match.");
+        return;
+      }
+
+      // Call the registration API (example function)
+      try {
+        // Replace `registerUser` with your actual implementation
+        const result = await registerUser(username, email, password);
+        alert(result.message || "Registration successful!");
+        window.location.href = "/src/auth/login.html";
+      } catch (error) {
+        alert(error.message || "Registration failed. Please try again.");
+      }
+    });
+  } else {
+    console.error("Register form not found.");
+  }
+}
+
+/**
+ * Initialize the login page.
+ */
+async function initializeLoginPage() {
+  console.log("Initializing login page...");
+  const form = document.getElementById("login-form");
+  if (form) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!email || !password) {
+        alert("Please enter both email and password.");
+        return;
+      }
+
+      try {
+        await loginUser(email, password);
+      } catch (error) {
+        alert(error.message || "Login failed. Please try again.");
+      }
+    });
+  } else {
+    console.error("Login form not found.");
+  }
+}
+
+/**
  * Initialize the application.
  */
 async function initializeApp() {
   try {
     // Dynamically load header and footer for all pages
-    await loadComponent(
-      "header-placeholder",
-      "../../src/components/header.html"
-    );
-    await loadComponent(
-      "footer-placeholder",
-      "../../src/components/footer.html"
-    );
+    await loadComponent("header-placeholder", "/src/components/header.html");
+    await loadComponent("footer-placeholder", "/src/components/footer.html");
 
     // Determine which page is being loaded based on the URL
     const currentPage = window.location.pathname;
 
     if (currentPage.includes("index.html") || currentPage === "/") {
-      // Index page logic: Show spinner, load listings, and setup pagination
-      showLoading("card-container");
-      await loadListings(12, 1, "endsAt", "asc");
-
-      // Remove spinner after listings are loaded
-      const spinner = document.querySelector(".spinner");
-      if (spinner) spinner.remove();
-
-      setupPagination();
+      await initializeIndexPage();
     } else if (currentPage.includes("register.html")) {
-      console.log("Initializing register page...");
-      // Add any register-specific initialization logic here
+      await initializeRegisterPage();
     } else if (currentPage.includes("login.html")) {
-      console.log("Initializing login page...");
-      // Add any login-specific initialization logic here
+      await initializeLoginPage();
     }
   } catch (error) {
     console.error("Error initializing the application:", error);

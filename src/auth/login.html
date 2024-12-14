@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Log in to your Velorum account to access your profile, listings, and more." />
-    <title>Login - Velorum</title>
-    <link rel="stylesheet" href="css/styles.css" />
+      content="Login to Velorum - Access your auction account." />
+    <title>Velorum - Login</title>
+
+    <!-- Correct path to CSS -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
@@ -15,56 +19,49 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer" />
   </head>
+
   <body>
-    <header class="header" role="banner">
-      <div class="container">
-        <a href="index.html" class="logo" aria-label="Velorum Home">Velorum</a>
-      </div>
-    </header>
-    <main class="container my-5" role="main">
-      <section aria-labelledby="login-heading" class="login-section">
-        <h1 id="login-heading">Log In to Velorum</h1>
-        <p>Enter your credentials to access your account.</p>
-        <form id="login-form" novalidate>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email Address:</label>
-            <input
-              type="email"
-              id="email"
-              class="form-control"
-              placeholder="example@stud.noroff.no"
-              required
-              aria-required="true" />
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
-            <input
-              type="password"
-              id="password"
-              class="form-control"
-              placeholder="Enter your password"
-              required
-              aria-required="true" />
-          </div>
-          <button type="submit" class="btn btn-primary w-100">Log In</button>
-        </form>
-        <p class="mt-3 text-center">
-          Don't have an account? <a href="register.html">Register here</a>.
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+      <h1 class="text-center">Login</h1>
+      <form id="login-form" class="login-form">
+        <div id="feedback-message" class="feedback"></div>
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            placeholder="example@stud.noroff.no"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="Enter your password"
+            required />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </div>
+        <p class="text-center">
+          Don't have an account? <a href="register.html">Register here.</a>
         </p>
-      </section>
+      </form>
     </main>
-    <footer role="contentinfo" class="footer">
-      <div class="container">
-        <p>&copy; 2024 Velorum. All rights reserved.</p>
-        <nav>
-          <ul>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="terms.html">Terms of Service</a></li>
-          </ul>
-        </nav>
-      </div>
-    </footer>
-    <script type="module" src="js/auth.js"></script>
-    <script type="module" src="js/menu.js"></script>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/main.js"></script>
   </body>
 </html>
