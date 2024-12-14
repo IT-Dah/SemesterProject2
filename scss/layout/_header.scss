@@ -3,23 +3,27 @@
 .header {
   background-color: variables.$theme-primary;
   color: variables.$theme-secondary;
-  padding: 1rem;
+  padding: 0.5rem 1rem; // Adjust padding for smaller screens
+  box-shadow: variables.$theme-shadow-md;
 
   .container {
+    max-width: 1200px; // Ensure the header content stays centered
+    margin: 0 auto; // Center content horizontally
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px; // Match the main content width
-    margin: 0 auto; // Center the container
-    padding: 0 1rem; // Add padding for small screens
-    box-sizing: border-box; // Prevent overflow issues
   }
 
   .logo {
     font-family: variables.$theme-font-heading;
     font-size: 1.5rem;
+    font-weight: bold;
     color: variables.$theme-secondary;
     text-decoration: none;
+
+    &:hover {
+      color: variables.$theme-accent;
+    }
   }
 
   .menu-icon {
@@ -48,6 +52,7 @@
     width: 100%;
     max-width: 300px;
     padding: 1rem;
+    z-index: 1000; // Ensure it stays above other content
 
     ul {
       list-style: none;
@@ -60,11 +65,11 @@
         a {
           display: flex;
           align-items: center;
+          gap: 0.5rem;
           color: variables.$theme-secondary;
           text-decoration: none;
           font-family: variables.$theme-font-body;
           font-size: 1rem;
-          gap: 0.5rem;
 
           &:hover {
             color: variables.$theme-accent;
@@ -83,9 +88,10 @@
   }
 
   .navbar-menu.active {
-    display: block;
+    display: block; // Show when toggled
   }
 
+  // Larger screens: show the navbar menu inline
   @media (min-width: variables.$theme-breakpoint-md) {
     .menu-icon {
       display: none;
