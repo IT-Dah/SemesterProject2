@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Login to Velorum - Access your auction account." />
-    <title>Velorum - Login</title>
-
-    <!-- Correct path to CSS -->
-    <link rel="stylesheet" href="/css/styles.css" />
-
-    <!-- Font Awesome -->
+      content="Sign in to Velorum - Access the premier auction platform." />
+    <title>Velorum - Sign In</title>
+    <link rel="stylesheet" href="../../css/styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
@@ -19,16 +15,24 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer" />
   </head>
-
   <body>
     <!-- Header -->
     <div id="header-placeholder"></div>
 
     <!-- Main Content -->
     <main class="container my-5">
-      <h1 class="text-center">Login</h1>
+      <h1 class="text-center">Sign In</h1>
       <form id="login-form" class="login-form">
-        <div id="feedback-message" class="feedback"></div>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            placeholder="Enter your username"
+            required />
+        </div>
         <div class="form-group">
           <label for="email">Email Address:</label>
           <input
@@ -50,10 +54,10 @@
             required />
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary w-100">Login</button>
+          <button type="submit" class="btn btn-primary w-100">Sign In</button>
         </div>
         <p class="text-center">
-          Don't have an account? <a href="register.html">Register here.</a>
+          New user? Create your account <a href="register.html">here</a>.
         </p>
       </form>
     </main>
@@ -62,6 +66,6 @@
     <div id="footer-placeholder"></div>
 
     <!-- Scripts -->
-    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="../../js/main.js"></script>
   </body>
 </html>
