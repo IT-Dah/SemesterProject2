@@ -9,25 +9,32 @@ async function handleRegistration(event) {
   event.preventDefault();
 
   // Get form inputs
-  const name = document.getElementById("username").value.trim(); // Updated to match API requirements
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirm-password").value;
+  const name = document.getElementById("username")?.value.trim(); // Matches API requirements
+  const email = document.getElementById("email")?.value.trim();
+  const password = document.getElementById("password")?.value;
+  const confirmPassword = document.getElementById("confirm-password")?.value;
 
   // Basic input validation
+  if (!name || name.length < 3) {
+    alert("Username must be at least 3 characters long.");
+    return;
+  }
+
   if (!validateEmail(email)) {
-    alert("Please enter a valid email address.");
+    alert("Please enter a valid email address ending with @stud.noroff.no.");
     return;
   }
 
   if (!validatePasswords(password, confirmPassword)) {
-    alert("Passwords do not match or do not meet the required criteria.");
+    alert(
+      "Passwords do not match or do not meet the required criteria (min. 8 characters)."
+    );
     return;
   }
 
   // Construct registration data
   const registrationData = {
-    name, // Updated to match the required field
+    name, // Matches required API field
     email,
     password,
   };
@@ -46,17 +53,20 @@ async function handleRegistration(event) {
 
       // Improved error handling with specific message
       const errorMessage =
-        errorData.errors?.[0]?.message || "An unexpected error occurred.";
+        errorData.errors?.[0]?.message ||
+        "An unexpected error occurred. Please try again.";
       alert(`Registration failed: ${errorMessage}`);
       return;
     }
 
     // On success
     alert("Registration successful! Redirecting to login...");
-    window.location.href = "login.html";
+    window.location.href = "../auth/login.html"; // Updated path for redirect
   } catch (error) {
     console.error("Error during registration:", error);
-    alert("An error occurred while registering. Please try again later.");
+    alert(
+      "An error occurred while registering. Please check your internet connection and try again."
+    );
   }
 }
 

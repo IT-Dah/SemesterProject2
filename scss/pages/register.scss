@@ -1,0 +1,54 @@
+@use "../variables"; // Import variables
+
+/* Register Page Styling */
+.register-form {
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 2rem;
+  background-color: variables.$theme-background;
+  border: 1px solid variables.$theme-neutral-light;
+  border-radius: variables.$theme-border-radius;
+  box-shadow: variables.$theme-shadow-sm;
+
+  h2 {
+    font-family: variables.$theme-font-heading;
+    color: variables.$theme-primary;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: variables.$theme-font-body;
+    color: variables.$theme-neutral;
+  }
+
+  input,
+  select,
+  button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    font-family: variables.$theme-font-body;
+    border: 1px solid variables.$theme-neutral-light;
+    border-radius: variables.$theme-border-radius;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: variables.$theme-accent;
+    color: variables.$theme-secondary;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: variables.$theme-hover-green;
+    }
+  }
+
+  .required {
+    color: variables.$theme-neutral-dark;
+    font-size: 0.875rem;
+  }
+}

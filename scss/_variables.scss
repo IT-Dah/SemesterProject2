@@ -9,6 +9,14 @@ $theme-primary: #2b3a67; // Navy Blue
 $theme-secondary: #f5f5f2; // Light Beige
 $theme-accent: #419774; // Teal Green
 $theme-neutral: #6b7280; // Cool Grey
+$theme-neutral-light: color.adjust(
+  $theme-neutral,
+  $lightness: 20%
+); // Lightened Cool Grey
+$theme-neutral-dark: color.adjust(
+  $theme-neutral,
+  $lightness: -20%
+); // Darkened Cool Grey
 $theme-background: #fafafa; // Soft White
 $theme-hover-green: #1c6145; // Green Hover
 $theme-blue-button: #3b539c; // Blue Default Button

@@ -39,7 +39,7 @@
     left: 0;
     right: 0;
     background-color: variables.$theme-primary;
-    box-shadow: variables.$theme-shadow-lg;
+    box-shadow: variables.$theme-shadow-lg; /* Add shadow for small screens */
     padding: 1rem;
     overflow: hidden;
     max-height: 0; /* Hide menu initially */
@@ -91,6 +91,7 @@
       opacity: 1;
       max-height: none;
       padding: 0;
+      box-shadow: none; /* Remove shadow on larger screens */
       transition: none;
 
       ul {

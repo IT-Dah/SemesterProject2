@@ -6,9 +6,12 @@
  */
 export function validatePasswords(password, confirmPassword) {
   const minPasswordLength = 8;
+  const passwordCriteria = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/; // At least one letter, one number, 8+ characters
 
-  if (!password || password.length < minPasswordLength) {
-    alert(`Password must be at least ${minPasswordLength} characters long.`);
+  if (!password || !passwordCriteria.test(password)) {
+    alert(
+      `Password must be at least ${minPasswordLength} characters long, and include at least one letter and one number.`
+    );
     return false;
   }
 
@@ -27,7 +30,7 @@ export function validatePasswords(password, confirmPassword) {
  * @returns {boolean} - True if the email is valid, false otherwise.
  */
 export function validateEmail(email, domain = "stud.noroff.no") {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // General email validation regex
 
   if (!emailRegex.test(email)) {
     alert("Please enter a valid email address.");
@@ -35,7 +38,7 @@ export function validateEmail(email, domain = "stud.noroff.no") {
   }
 
   if (!email.endsWith(`@${domain}`)) {
-    alert(`Email must end with @${domain}`);
+    alert(`Email must end with @${domain}.`);
     return false;
   }
 
