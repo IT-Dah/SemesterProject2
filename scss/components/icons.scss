@@ -1,0 +1,14 @@
+@use "../variables";
+
+.icon {
+  font-size: 1.25rem;
+  color: variables.$theme-neutral;
+
+  &:hover {
+    color: variables.$theme-hover-green;
+  }
+}
+
+.icon--large {
+  font-size: 2rem;
+}

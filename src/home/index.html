@@ -7,7 +7,11 @@
       name="description"
       content="Velorum - Your premier destination for online auctions. Explore, bid, and sell today!" />
     <title>Velorum - Online Auctions</title>
+
+    <!-- Styles -->
     <link rel="stylesheet" href="../../css/styles.css" />
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
@@ -16,44 +20,52 @@
       referrerpolicy="no-referrer" />
   </head>
   <body>
+    <!-- Header -->
     <div id="header-placeholder"></div>
 
-    <!-- Main content area -->
-    <main class="container my-5" role="main">
-      <h1 class="text-center">Welcome to Velorum</h1>
-      <p class="text-center">
-        The premier destination for online auctions. Bid, buy, and sell amazing
-        items today!
-      </p>
+    <!-- Main Content -->
+    <main class="container my-5">
+      <!-- Hero Section -->
+      <header class="text-center mb-5">
+        <h1>Welcome to Velorum</h1>
+        <p>
+          The premier destination for online auctions. Bid, buy, and sell
+          amazing items today!
+        </p>
+      </header>
 
-      <!-- Search and Sort -->
-      <div class="d-flex justify-content-between align-items-center my-4">
-        <div class="search-bar">
+      <!-- Search and Sort Section -->
+      <div
+        class="search-sort-bar d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+        <!-- Search Bar -->
+        <div class="search-bar mb-2 mb-md-0">
           <input
             type="text"
             class="form-control"
-            placeholder="Search"
-            aria-label="Search Listings" />
+            placeholder="Search listings..."
+            aria-label="Search listings" />
         </div>
+        <!-- Sort Button -->
         <div class="sort-options">
-          <button class="btn btn-outline-primary">
+          <button class="btn btn-light">
             <i class="fas fa-sort"></i> Sort
           </button>
         </div>
       </div>
 
-      <!-- Section for featured listings -->
+      <!-- Featured Listings Section -->
       <section
         id="card-container"
-        class="row"
+        class="row g-4"
         aria-live="polite"
         aria-labelledby="featured-listings">
         <h2 id="featured-listings" class="visually-hidden">
           Featured Listings
         </h2>
+        <!-- Dynamic content will be loaded here via JavaScript -->
       </section>
 
-      <!-- Pagination for listings -->
+      <!-- Pagination -->
       <nav
         class="pagination mt-4 d-flex justify-content-between"
         aria-label="Pagination">
@@ -64,9 +76,10 @@
       </nav>
     </main>
 
+    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- JavaScript -->
+    <!-- Scripts -->
     <script type="module" src="../../js/main.js"></script>
   </body>
 </html>

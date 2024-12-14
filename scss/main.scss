@@ -4,11 +4,11 @@
 @use "layout/mixins";
 @use "layout/header";
 @use "layout/footer";
+@use "components/buttons";
+@use "components/cards";
+@use "components/modals";
 @use "pages/login";
 @use "pages/register";
 @use "pages/profile";
 @use "pages/listings";
 @use "pages/details";
-@use "components/buttons";
-@use "components/cards";
-@use "components/modals";

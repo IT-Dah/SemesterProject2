@@ -1,11 +1,43 @@
-/* Search bar styling */
-.search-bar input {
-  max-width: 250px;
-}
+@use "../variables";
 
-/* Sort button styling */
-.sort-options button {
+.button {
   display: inline-flex;
+  justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  font-family: variables.$theme-font-body;
+  font-size: variables.$font-size-base;
+  padding: 0.5rem 1rem;
+  border-radius: variables.$theme-border-radius;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &--primary {
+    background-color: variables.$theme-blue-button;
+    color: variables.$theme-secondary;
+
+    &:hover {
+      background-color: variables.$theme-hover-green;
+    }
+  }
+
+  &--accent {
+    background-color: variables.$theme-accent;
+    color: variables.$theme-secondary;
+
+    &:hover {
+      background-color: variables.$theme-hover-green;
+    }
+  }
+
+  &--outline {
+    background-color: transparent;
+    border: 2px solid variables.$theme-primary;
+    color: variables.$theme-primary;
+
+    &:hover {
+      background-color: variables.$theme-primary;
+      color: variables.$theme-secondary;
+    }
+  }
 }

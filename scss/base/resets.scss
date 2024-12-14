@@ -1,0 +1,51 @@
+@use "../variables"; // Import variables for consistent styling
+
+// Global Reset
+*,
+*::before,
+*::after {
+  box-sizing: border-box; // Include padding and borders in width/height
+}
+
+body {
+  margin: 0; // Remove default browser margin
+  padding: 0; // Remove default browser padding
+  overflow-x: hidden; // Prevent horizontal scrolling
+  background-color: variables.$theme-background; // Use theme background color
+  font-family: variables.$theme-font-body; // Apply global font family
+  color: variables.$theme-neutral; // Set default text color
+  line-height: 1.5; // Improve readability
+  -webkit-font-smoothing: antialiased; // Optimize font rendering
+}
+
+// Layout for main content
+main {
+  max-width: 1200px; // Limit width for consistent layout
+  margin: 0 auto; // Center main content
+  padding: 1rem; // Add padding for spacing
+}
+
+// Accessibility helper: Visually hidden elements for screen readers
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Utility for fluid image scaling
+img {
+  max-width: 100%; // Scale images to fit their containers
+  height: auto; // Maintain aspect ratio
+}
+
+// Utility for link appearance reset
+a {
+  text-decoration: none; // Remove default underline
+  color: inherit; // Inherit text color
+}

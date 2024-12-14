@@ -67,6 +67,11 @@ export async function loadListings(
   sortOrder = "asc"
 ) {
   const cardContainer = document.getElementById("card-container");
+  if (!cardContainer) {
+    console.error("Card container not found in the DOM.");
+    return;
+  }
+
   cardContainer.innerHTML = "<p>Loading listings...</p>";
 
   try {
