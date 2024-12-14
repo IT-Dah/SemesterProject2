@@ -7,11 +7,7 @@
       name="description"
       content="Velorum - Your premier destination for online auctions. Explore, bid, and sell today!" />
     <title>Velorum - Online Auctions</title>
-
-    <!-- CSS Styles -->
     <link rel="stylesheet" href="../../css/styles.css" />
-
-    <!-- Font Awesome Icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
@@ -25,11 +21,31 @@
 
     <!-- Main content area -->
     <main class="container my-5" role="main">
-      <h1>Welcome to Velorum</h1>
-      <p>
+      <h1 class="text-center">Welcome to Velorum</h1>
+      <p class="text-center">
         The premier destination for online auctions. Bid, buy, and sell amazing
         items today!
       </p>
+
+      <!-- Search and Sort Section -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="search-bar">
+          <input
+            type="text"
+            class="form-control"
+            id="search-input"
+            placeholder="Search"
+            aria-label="Search" />
+        </div>
+        <div class="sort-options">
+          <button
+            id="sort-button"
+            class="btn btn-outline-primary"
+            aria-label="Sort listings">
+            <i class="fas fa-sort"></i> Sort
+          </button>
+        </div>
+      </div>
 
       <!-- Section for featured listings -->
       <section
@@ -37,7 +53,10 @@
         class="row"
         aria-live="polite"
         aria-labelledby="featured-listings">
-        <h2 id="featured-listings">Featured Listings</h2>
+        <h2 id="featured-listings" class="visually-hidden">
+          Featured Listings
+        </h2>
+        <!-- Listings will be dynamically inserted here by JavaScript -->
       </section>
 
       <!-- Pagination for listings -->
