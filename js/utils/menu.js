@@ -1,43 +1,32 @@
-/**
- * Sets up a responsive navigation menu with toggle functionality.
- * @param {string} menuToggleSelector - CSS selector for the menu toggle button.
- * @param {string} navbarMenuSelector - CSS selector for the navbar menu.
- */
-export function setupResponsiveNavbar(
-  menuToggleSelector = ".menu-icon button",
-  navbarMenuSelector = ".navbar-menu"
-) {
-  const menuToggle = document.querySelector(menuToggleSelector);
-  const navbarMenu = document.querySelector(navbarMenuSelector);
+export function setupResponsiveNavbar() {
+  const menuButton = document.querySelector(".menu-icon button");
+  const navbarMenu = document.querySelector(".navbar-menu");
 
-  if (!menuToggle || !navbarMenu) {
-    console.error("Menu toggle button or navbar menu not found.");
+  // Debugging: Check if elements exist
+  console.log("Menu Button:", menuButton);
+  console.log("Navbar Menu:", navbarMenu);
+
+  if (!menuButton || !navbarMenu) {
+    console.error("Menu button or navbar menu not found in the DOM.");
     return;
   }
 
-  // Toggle menu visibility
-  menuToggle.addEventListener("click", () => {
-    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
-    menuToggle.setAttribute("aria-expanded", !isExpanded);
-    navbarMenu.classList.toggle("show");
+  // Attach click event to the menu button
+  menuButton.addEventListener("click", () => {
+    const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", !isExpanded);
+    navbarMenu.classList.toggle("active");
   });
 
-  // Close menu when clicking outside
+  // Close the menu when clicking outside
   document.addEventListener("click", (event) => {
     if (
-      !navbarMenu.contains(event.target) &&
-      !menuToggle.contains(event.target)
+      navbarMenu.classList.contains("active") &&
+      !event.target.closest(".menu-icon") &&
+      !event.target.closest(".navbar-menu")
     ) {
-      menuToggle.setAttribute("aria-expanded", "false");
-      navbarMenu.classList.remove("show");
-    }
-  });
-
-  // Ensure proper state on window resize
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 768) {
-      menuToggle.setAttribute("aria-expanded", "false");
-      navbarMenu.classList.remove("show");
+      menuButton.setAttribute("aria-expanded", false);
+      navbarMenu.classList.remove("active");
     }
   });
 }

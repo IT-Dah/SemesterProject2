@@ -1,59 +1,12 @@
-// Import custom variables (customize if necessary)
-@use "./variables" as vars;
-
-// Import custom styles (header, footer, custom, etc.)
-@use "./header" as header;
-@use "./footer" as footer;
-@use "./custom" as custom;
-
-// Global styles
-body {
-  margin: 0;
-  font-family: vars.$font-body;
-  background-color: vars.$background;
-  color: vars.$neutral;
-  line-height: 1.6;
-}
-
-// Apply header styles (using the mixin from _header.scss)
-@include header.header();
-
-// Apply footer styles (using the mixin from _footer.scss)
-@include footer.footer();
-
-// Apply custom styles (using the mixin from _custom.scss)
-@include custom.custom();
-
-// Additional global resets and utility classes
-a {
-  text-decoration: none;
-  color: inherit;
-
-  &:hover {
-    text-decoration: underline;
-    color: vars.$accent;
-  }
-}
-
-ul,
-ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-button {
-  font-family: vars.$font-body;
-  cursor: pointer;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-}
+@use "variables";
+@use "layout/mixins";
+@use "base/resets";
+@use "layout/header";
+@use "layout/footer";
+@use "components/buttons";
+@use "components/cards";
+@use "pages/login";
+@use "pages/register";
+@use "pages/profile";
+@use "pages/listings";
+@use "pages/details";

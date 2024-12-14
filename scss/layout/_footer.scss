@@ -1,0 +1,25 @@
+@use "../variables";
+
+.footer {
+  background-color: variables.$theme-primary;
+  color: variables.$theme-background;
+  padding: 1rem 0;
+  text-align: center;
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  nav a {
+    color: variables.$theme-secondary;
+    text-decoration: none;
+    font-family: variables.$theme-font-body;
+
+    &:hover {
+      color: variables.$theme-accent;
+    }
+  }
+}

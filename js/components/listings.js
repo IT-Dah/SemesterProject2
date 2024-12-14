@@ -29,11 +29,10 @@ export function createCard(listing) {
     : "No bids yet";
   const endsAt = new Date(listing.endsAt).toLocaleString();
 
-  // Media fallback: Check for media URL validity
   const imageUrl =
     listing.media?.length > 0 && isValidUrl(listing.media[0])
       ? listing.media[0]
-      : "assets/images/default.svg";
+      : "/assets/images/default.svg";
 
   card.innerHTML = `
     <div class="card h-100 shadow-sm">
@@ -41,7 +40,7 @@ export function createCard(listing) {
         src="${imageUrl}" 
         class="card-img-top" 
         alt="${title}" 
-        onerror="this.src='assets/images/default.svg';">
+        onerror="this.src='/assets/images/default.svg';">
       <div class="card-body text-center">
         <h5 class="card-title">${title}</h5>
         <p class="card-text"><strong>Current Bid:</strong> ${highestBid}</p>
@@ -71,7 +70,6 @@ export async function loadListings(
   cardContainer.innerHTML = "<p>Loading listings...</p>";
 
   try {
-    // Fetch listings with enriched data (_bids and _seller included)
     const listings = await fetchListings(
       limit,
       page,
@@ -81,17 +79,8 @@ export async function loadListings(
     );
     console.log("Listings fetched:", listings);
 
-    // Clear the container before appending new cards
-    cardContainer.innerHTML = "";
-
-    if (!Array.isArray(listings)) {
-      console.error("API response is not an array:", listings);
-      cardContainer.innerHTML =
-        "<p>Failed to load listings. Invalid data format.</p>";
-      return;
-    }
-
-    if (listings.length === 0) {
+    cardContainer.innerHTML = ""; // Clear the container
+    if (!listings.length) {
       cardContainer.innerHTML = "<p>No listings available.</p>";
       return;
     }
@@ -108,7 +97,7 @@ export async function loadListings(
 }
 
 /**
- * Setup pagination for the listings.
+ * Setup pagination for listings.
  */
 export function setupPagination() {
   const nextPageBtn = document.getElementById("next-page");
@@ -123,27 +112,17 @@ export function setupPagination() {
   // Initial button state
   prevPageBtn.disabled = currentPage === 1;
 
-  nextPageBtn.addEventListener("click", () => {
+  nextPageBtn.addEventListener("click", async () => {
     currentPage++;
-    loadListings(12, currentPage); // Fetch 12 listings per page
-    prevPageBtn.disabled = false; // Enable the previous button
+    await loadListings(12, currentPage);
+    prevPageBtn.disabled = false;
   });
 
-  prevPageBtn.addEventListener("click", () => {
+  prevPageBtn.addEventListener("click", async () => {
     if (currentPage > 1) {
       currentPage--;
-      loadListings(12, currentPage); // Fetch 12 listings per page
+      await loadListings(12, currentPage);
     }
-    prevPageBtn.disabled = currentPage === 1; // Disable the previous button if on page 1
-  });
-}
-
-/**
- * Initialize the listings page.
- */
-export function initializeListings() {
-  document.addEventListener("DOMContentLoaded", () => {
-    loadListings();
-    setupPagination();
+    prevPageBtn.disabled = currentPage === 1;
   });
 }
