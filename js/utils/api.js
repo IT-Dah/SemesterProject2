@@ -8,26 +8,35 @@ export const API_BASE_URL = "https://v2.api.noroff.dev/";
  */
 export async function fetchFromApi(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
-  console.log("Fetching from API:", url); // Debug log
+  console.log("Fetching from API:", url, "with options:", options);
 
   try {
     const response = await fetch(url, options);
 
+    // Handle non-OK responses
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(
-        `API Error (${response.status}): ${
-          errorData.message || response.statusText
-        }`
-      );
+      let errorMessage = `API Error (${response.status}): ${response.statusText}`;
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.message || errorMessage; // Prefer API-provided message
+      } catch (jsonError) {
+        console.warn("Error parsing API error response:", jsonError);
+      }
+      throw new Error(errorMessage);
     }
 
+    // Parse and validate the response
     const data = await response.json();
-    console.log("API Response:", data); // Debug log
+    console.log("API Response:", data);
+
+    if (!data || typeof data !== "object") {
+      throw new Error("Invalid API response: Response is not an object.");
+    }
+
     return data;
   } catch (error) {
-    console.error("Error fetching from API:", error);
-    throw error; // Propagate error to allow handling in calling functions
+    console.error("Error fetching from API:", error.message || error);
+    throw error; // Rethrow to let calling functions handle it
   }
 }
 
@@ -49,10 +58,22 @@ export async function fetchListings(
 ) {
   const endpoint = `auction/listings?limit=${limit}&page=${page}&sort=${sort}&sortOrder=${sortOrder}&${additionalParams}`;
   try {
-    const data = await fetchFromApi(endpoint);
-    return data.data || []; // Extract only the `data` property if present
+    const response = await fetchFromApi(endpoint);
+    console.log("Full API Response:", response);
+
+    // Validate and extract `data` from the response
+    if (response && response.data && Array.isArray(response.data)) {
+      console.log("Listings fetched:", response.data);
+      return response.data; // Return the listings array
+    } else {
+      console.warn(
+        "Unexpected API response format. Expected an array:",
+        response
+      );
+      return []; // Return empty array as fallback
+    }
   } catch (error) {
-    console.error("Error fetching listings:", error);
-    return []; // Return an empty array as a fallback
+    console.error("Error fetching listings:", error.message || error);
+    return [];
   }
 }

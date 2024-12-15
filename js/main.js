@@ -1,6 +1,6 @@
-import { loadListings, setupPagination } from "./components/listings.js";
+import { loadListings } from "./components/listings.js";
 import { setupResponsiveNavbar } from "./utils/menu.js";
-import { loginUser } from "./components/auth.js"; // Import login logic if needed
+import { loginUser, registerUser } from "./components/auth.js"; // Import login and register logic
 
 /**
  * Display a loading spinner in the specified container.
@@ -41,7 +41,6 @@ async function loadComponent(id, filePath) {
     const content = await response.text();
     placeholder.innerHTML = content;
 
-    // Setup the responsive navbar after the header is loaded
     if (id === "header-placeholder") {
       setupResponsiveNavbar();
     }
@@ -58,11 +57,8 @@ async function initializeIndexPage() {
     showLoading("card-container");
     await loadListings(12, 1, "endsAt", "asc");
 
-    // Remove spinner after listings are loaded
     const spinner = document.querySelector(".spinner");
     if (spinner) spinner.remove();
-
-    setupPagination();
   } catch (error) {
     console.error("Error initializing index page:", error);
     alert("Failed to load listings. Please refresh the page.");
@@ -75,6 +71,7 @@ async function initializeIndexPage() {
 async function initializeRegisterPage() {
   console.log("Initializing register page...");
   const form = document.getElementById("register-form");
+
   if (form) {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -89,12 +86,12 @@ async function initializeRegisterPage() {
         return;
       }
 
-      // Call the registration API (example function)
       try {
-        // Replace `registerUser` with your actual implementation
         const result = await registerUser(username, email, password);
         alert(result.message || "Registration successful!");
-        window.location.href = "/src/auth/login.html";
+        setTimeout(() => {
+          window.location.href = "/src/auth/login.html";
+        }, 2000);
       } catch (error) {
         alert(error.message || "Registration failed. Please try again.");
       }
@@ -110,6 +107,7 @@ async function initializeRegisterPage() {
 async function initializeLoginPage() {
   console.log("Initializing login page...");
   const form = document.getElementById("login-form");
+
   if (form) {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -138,11 +136,9 @@ async function initializeLoginPage() {
  */
 async function initializeApp() {
   try {
-    // Dynamically load header and footer for all pages
     await loadComponent("header-placeholder", "/src/components/header.html");
     await loadComponent("footer-placeholder", "/src/components/footer.html");
 
-    // Determine which page is being loaded based on the URL
     const currentPage = window.location.pathname;
 
     if (currentPage.includes("index.html") || currentPage === "/") {

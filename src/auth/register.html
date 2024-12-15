@@ -22,11 +22,15 @@
     <!-- Main Content -->
     <main class="container my-5">
       <!-- Feedback message -->
-      <div id="feedback-message" class="feedback"></div>
+      <div
+        id="feedback-message"
+        class="feedback visually-hidden"
+        role="alert"
+        aria-live="polite"></div>
 
       <!-- Registration Form -->
       <h1 class="text-center">Register</h1>
-      <form id="register-form" class="register-form">
+      <form id="register-form" class="register-form" novalidate>
         <div class="form-group">
           <label for="username">Username: *</label>
           <input
@@ -36,7 +40,9 @@
             class="form-control"
             placeholder="Enter username"
             aria-label="Username"
+            minlength="3"
             required />
+          <small class="text-muted">At least 3 characters long.</small>
         </div>
         <div class="form-group">
           <label for="email">Email Address: *</label>
@@ -48,6 +54,7 @@
             placeholder="example@stud.noroff.no"
             aria-label="Email Address"
             required />
+          <small class="text-muted">Email must end with @stud.noroff.no</small>
         </div>
         <div class="form-group">
           <label for="password">Password: *</label>
@@ -58,7 +65,11 @@
             class="form-control"
             placeholder="min. 8 characters"
             aria-label="Password"
+            minlength="8"
             required />
+          <small class="text-muted">
+            Password must be at least 8 characters and contain a number.
+          </small>
         </div>
         <div class="form-group">
           <label for="confirm-password">Confirm Password: *</label>
@@ -71,7 +82,7 @@
             required />
         </div>
         <div class="form-group">
-          <label for="profile-image">Profile image:</label>
+          <label for="profile-image">Profile Image (Optional):</label>
           <input
             type="file"
             id="profile-image"
