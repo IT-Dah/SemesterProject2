@@ -56,18 +56,32 @@ export async function fetchListings(
   sortOrder = "asc",
   additionalParams = ""
 ) {
-  const endpoint = `auction/listings?limit=${limit}&page=${page}&sort=${sort}&sortOrder=${sortOrder}&${additionalParams}`;
+  const params = new URLSearchParams({
+    limit,
+    page,
+    sort,
+    sortOrder,
+    ...Object.fromEntries(new URLSearchParams(additionalParams)), // Include additional params
+  });
+
+  const endpoint = `auction/listings?${params.toString()}`;
   try {
     const response = await fetchFromApi(endpoint);
     console.log("Full API Response:", response);
 
     // Validate and extract `data` from the response
-    if (response && response.data && Array.isArray(response.data)) {
-      console.log("Listings fetched:", response.data);
-      return response.data; // Return the listings array
+    if (Array.isArray(response)) {
+      console.log("Listings fetched:", response);
+      return response; // Return the listings array
+    } else if (response?.data && Array.isArray(response.data)) {
+      console.warn(
+        "API response wrapped in a 'data' property; flattening:",
+        response.data
+      );
+      return response.data; // Handle `data` wrapped responses
     } else {
       console.warn(
-        "Unexpected API response format. Expected an array:",
+        "Unexpected API response format. Returning empty array:",
         response
       );
       return []; // Return empty array as fallback

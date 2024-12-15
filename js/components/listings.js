@@ -29,18 +29,34 @@ export function createCard(listing) {
     : "No bids yet";
   const endsAt = new Date(listing.endsAt).toLocaleString();
 
-  const imageUrl =
-    listing.media?.length > 0 && isValidUrl(listing.media[0])
-      ? listing.media[0]
-      : "/assets/images/default.svg";
+  const defaultImage = "/assets/images/default.svg";
+  let imageUrl = defaultImage;
+  let imageAlt = "No image available";
+
+  if (
+    listing.media &&
+    Array.isArray(listing.media) &&
+    listing.media.length > 0
+  ) {
+    const firstMedia = listing.media[0];
+    if (
+      firstMedia?.url &&
+      typeof firstMedia.url === "string" &&
+      isValidUrl(firstMedia.url)
+    ) {
+      imageUrl = firstMedia.url;
+      imageAlt = firstMedia.alt || title;
+    }
+  }
 
   card.innerHTML = `
     <div class="card h-100 shadow-sm">
       <img 
         src="${imageUrl}" 
-        class="card-img-top" 
-        alt="${title}" 
-        onerror="this.src='/assets/images/default.svg';">
+        class="card-img-top"
+        alt="${imageAlt}" 
+        style="height: 200px; object-fit: cover;"
+        onerror="this.src='${defaultImage}';">
       <div class="card-body text-center">
         <h5 class="card-title">${title}</h5>
         <p class="card-text"><strong>Current Bid:</strong> ${highestBid}</p>
@@ -51,6 +67,20 @@ export function createCard(listing) {
   `;
 
   return card;
+}
+
+/**
+ * Display a loading spinner.
+ * @param {HTMLElement} container - The container where the spinner will be added.
+ */
+function showLoadingSpinner(container) {
+  container.innerHTML = `
+    <div class="d-flex justify-content-center my-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  `;
 }
 
 /**
@@ -72,7 +102,7 @@ export async function loadListings(
     return;
   }
 
-  cardContainer.innerHTML = "<p>Loading listings...</p>";
+  showLoadingSpinner(cardContainer);
 
   try {
     const listings = await fetchListings(

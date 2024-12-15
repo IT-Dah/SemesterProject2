@@ -33,27 +33,37 @@ export function setupResponsiveNavbar() {
 }
 
 /**
- * Updates the authentication button based on user login status.
+ * Updates the authentication button and "My Profile" link based on user login status.
  * @param {HTMLElement} authButtonContainer - The container element for the auth button.
  */
 function updateAuthButton(authButtonContainer) {
   const accessToken = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username");
 
   if (accessToken) {
     // User is signed in
     authButtonContainer.innerHTML = `
-      <button class="btn btn-secondary" id="sign-out-button">
-        <i class="fas fa-sign-out-alt"></i> Sign Out
-      </button>
+      <li>
+        <a href="../../src/profile/profile.html" class="btn btn-info">
+          <i class="fas fa-user"></i> My Profile
+        </a>
+      </li>
+      <li>
+        <button class="btn btn-secondary" id="sign-out-button">
+          <i class="fas fa-sign-out-alt"></i> Sign Out
+        </button>
+      </li>
     `;
     const signOutButton = document.getElementById("sign-out-button");
     signOutButton.addEventListener("click", () => handleSignOut());
   } else {
     // User is signed out
     authButtonContainer.innerHTML = `
-      <a href="../../src/auth/login.html" class="btn btn-primary">
-        <i class="fas fa-sign-in-alt"></i> Sign In
-      </a>
+      <li>
+        <a href="../../src/auth/login.html" class="btn btn-primary">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </a>
+      </li>
     `;
   }
 }

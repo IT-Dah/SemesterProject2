@@ -1,6 +1,6 @@
 @use "../variables"; // Import shared variables
 
-/* Ensure the card container doesn't exceed the viewport width */
+/* Card Container Styles */
 #card-container {
   display: grid;
   grid-template-columns: repeat(
@@ -8,53 +8,64 @@
     minmax(250px, 1fr)
   ); // Flexible grid layout
   gap: 1.5rem; // Space between cards
-  padding: 1rem; // Padding inside the container
-  max-width: 100%; // Ensure container stays within the screen width
+  padding: 1rem; // Padding around the grid
+  max-width: 1200px; // Constrain container width for readability
   margin: 0 auto; // Center the container
   box-sizing: border-box; // Include padding in width calculations
 }
 
-/* Card styles */
+/* Card Styles */
 .card {
   background-color: variables.$theme-background;
   border-radius: variables.$theme-border-radius;
   box-shadow: variables.$theme-shadow-sm;
-  overflow: hidden; // Prevent content from spilling out of the card
+  overflow: hidden; // Prevent content overflow
+  display: flex;
+  flex-direction: column;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s;
 
   &:hover {
-    transform: scale(1.05); // Slight zoom effect on hover
+    transform: scale(1.03); // Subtle zoom effect on hover
     box-shadow: variables.$theme-shadow-md; // Enhanced shadow on hover
   }
 
+  /* Image Styles */
   img {
-    width: 100%; // Ensure images are responsive
-    height: auto; // Maintain image aspect ratio
-    border-top-left-radius: variables.$theme-border-radius;
-    border-top-right-radius: variables.$theme-border-radius;
-    object-fit: cover; // Ensures images fit within the card
+    width: 100%; // Ensure full width
+    height: 200px; // Fixed height for consistent card sizing
+    object-fit: cover; // Crop images to fit the area
+    background-color: variables.$theme-neutral-light; // Fallback background color
   }
 
+  /* Card Body */
   .card-body {
-    padding: 1rem; // Consistent padding for the card content
-    text-align: center; // Center-align text content
+    padding: 1rem; // Consistent padding
+    text-align: center; // Center-align content
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; // Space content evenly
+    flex-grow: 1;
 
+    /* Card Title */
     .card-title {
       font-family: variables.$theme-font-heading;
       font-size: 1.25rem;
       color: variables.$theme-primary;
-      margin-bottom: 0.5rem; // Space below the title
-      text-overflow: ellipsis; // Truncate long titles
-      overflow: hidden;
-      white-space: nowrap; // Prevent wrapping
-    }
-
-    .card-text {
-      color: variables.$theme-neutral;
-      font-size: 0.875rem; // Slightly smaller font for text
       margin-bottom: 0.5rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap; // Prevent text wrapping
     }
 
+    /* Card Text */
+    .card-text {
+      color: variables.$theme-neutral-dark;
+      font-size: 0.875rem; // Slightly smaller font
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    /* Button */
     .btn-primary {
       background-color: variables.$theme-blue-button;
       border: none;
@@ -63,6 +74,7 @@
       padding: 0.5rem 1rem;
       font-size: 1rem;
       cursor: pointer;
+      margin-top: auto; // Push button to the bottom
       transition: background-color 0.3s;
 
       &:hover {
@@ -72,21 +84,27 @@
   }
 }
 
-/* Ensure proper behavior on smaller screens */
+/* Responsive Adjustments */
 @media (max-width: variables.$theme-breakpoint-sm) {
   #card-container {
     padding: 0.5rem; // Adjust padding for smaller screens
     gap: 1rem; // Reduce gap between cards
   }
 
-  .card-body {
-    .card-title {
-      font-size: 1rem; // Adjust font size for titles
+  .card {
+    img {
+      height: 150px; // Adjust image height for smaller cards
     }
 
-    .btn-primary {
-      font-size: 0.875rem; // Smaller button size
-      padding: 0.4rem 0.8rem; // Adjust padding for buttons
+    .card-body {
+      .card-title {
+        font-size: 1rem; // Smaller font size for titles
+      }
+
+      .btn-primary {
+        font-size: 0.875rem; // Adjust button size
+        padding: 0.4rem 0.8rem; // Adjust button padding
+      }
     }
   }
 }

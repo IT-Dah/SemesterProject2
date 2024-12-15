@@ -137,6 +137,13 @@ function initializeLoginPage() {
 }
 
 /**
+ * Initialize the profile page.
+ */
+async function initializeProfilePage() {
+  console.log("Profile page initialization logic can be added here.");
+}
+
+/**
  * Initialize the application based on the current page.
  */
 async function initializeApp() {
@@ -154,6 +161,8 @@ async function initializeApp() {
       initializeRegisterPage();
     } else if (currentPage.includes("login.html")) {
       initializeLoginPage();
+    } else if (currentPage.includes("profile.html")) {
+      await initializeProfilePage();
     }
   } catch (error) {
     console.error("Error initializing the application:", error);

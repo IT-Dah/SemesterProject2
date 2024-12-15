@@ -1,6 +1,7 @@
 @use "../variables";
 
 .header {
+  position: relative; /* Ensure it stays at the top */
   background-color: variables.$theme-primary;
   color: variables.$theme-secondary;
   padding: 1rem;
@@ -9,6 +10,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .logo {
+    font-family: variables.$theme-font-heading;
+    font-size: 1.5rem;
+    color: variables.$theme-secondary;
+    text-decoration: none;
   }
 
   .menu-icon {
@@ -26,51 +34,65 @@
   }
 
   .navbar-menu {
-    display: none; /* Hidden by default */
     position: absolute;
-    top: 100%;
+    top: 100%; /* Position below the header */
     left: 0;
     right: 0;
     background-color: variables.$theme-primary;
     padding: 1rem;
-    box-shadow: variables.$theme-shadow-lg;
+    transform: translateY(-20px); /* Slide-up effect initially */
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
 
     ul {
       list-style: none;
-      padding: 0;
       margin: 0;
+      padding: 0;
 
       li {
         margin-bottom: 1rem;
 
         a {
-          text-decoration: none;
+          display: block;
           color: variables.$theme-secondary;
+          text-decoration: none;
 
           &:hover {
             color: variables.$theme-accent;
           }
         }
       }
+
+      li:last-child {
+        margin-bottom: 0;
+      }
     }
 
     &.active {
-      display: block; /* Show menu when active */
+      transform: translateY(0); /* Slide down */
+      opacity: 1;
+      visibility: visible;
     }
   }
 
   @media (min-width: variables.$theme-breakpoint-md) {
     .menu-icon {
-      display: none; /* Hide Hamburger icon on large screens */
+      display: none; /* Hide hamburger on larger screens */
     }
 
     .navbar-menu {
       display: flex;
       position: static;
-      box-shadow: none;
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+      padding: 0;
+
       ul {
         display: flex;
-        gap: 1rem;
+        gap: 1.5rem;
+
         li {
           margin-bottom: 0;
         }

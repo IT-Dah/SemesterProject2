@@ -22,8 +22,13 @@
     <!-- Main Content -->
     <main class="container my-5">
       <h1 class="text-center">Sign In</h1>
-      <form id="login-form" class="login-form">
-        <div id="feedback-message" class="feedback"></div>
+      <form id="login-form" class="login-form" aria-labelledby="sign-in-form">
+        <div
+          id="feedback-message"
+          class="feedback visually-hidden"
+          role="alert">
+          <!-- Feedback for errors or success will be shown here -->
+        </div>
 
         <div class="form-group">
           <label for="email">Email Address:</label>
@@ -33,6 +38,7 @@
             name="email"
             class="form-control"
             placeholder="example@stud.noroff.no"
+            aria-label="Email address"
             required />
         </div>
         <div class="form-group">
@@ -43,10 +49,16 @@
             name="password"
             class="form-control"
             placeholder="Enter password"
+            aria-label="Password"
             required />
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary w-100">Sign In</button>
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+            aria-label="Sign In">
+            Sign In
+          </button>
         </div>
         <p class="text-center">
           New user? Create your account <a href="register.html">here</a>.
