@@ -10,34 +10,72 @@
   border-radius: variables.$theme-border-radius;
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  text-align: center;
+  text-decoration: none; // Remove underlines for button links
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px); // Subtle lift on hover
+  }
+
+  &:focus {
+    outline: 3px solid variables.$theme-focus-outline; // Accessibility focus outline
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: variables.$theme-disabled-bg;
+    color: variables.$theme-disabled-text;
+    opacity: 0.6;
+  }
 
   &--primary {
-    background-color: variables.$theme-blue-button;
+    background-color: variables.$theme-blue-button; // Navy Blue
     color: variables.$theme-secondary;
 
-    &:hover {
-      background-color: variables.$theme-hover-green;
+    &:hover:not(:disabled) {
+      background-color: variables.$theme-hover-green; // Green Hover
     }
   }
 
   &--accent {
-    background-color: variables.$theme-accent;
+    background-color: variables.$theme-accent; // Teal Green
     color: variables.$theme-secondary;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: variables.$theme-hover-green;
     }
   }
 
   &--outline {
     background-color: transparent;
-    border: 2px solid variables.$theme-primary;
+    border: 2px solid variables.$theme-primary; // Navy Blue border
     color: variables.$theme-primary;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: variables.$theme-primary;
       color: variables.$theme-secondary;
     }
+  }
+
+  &--danger {
+    background-color: variables.$theme-danger; // Danger Red
+    color: variables.$theme-secondary;
+
+    &:hover:not(:disabled) {
+      background-color: variables.$theme-danger-hover; // Darker Red
+    }
+  }
+
+  // Small and Large button modifiers
+  &--small {
+    font-size: variables.$font-size-small;
+    padding: 0.3rem 0.6rem;
+  }
+
+  &--large {
+    font-size: variables.$font-size-large;
+    padding: 0.75rem 1.5rem;
   }
 }

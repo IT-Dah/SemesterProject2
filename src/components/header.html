@@ -1,45 +1,23 @@
 <header class="header">
   <div class="container">
-    <!-- Logo -->
     <a href="../../src/home/index.html" class="logo">Velorum</a>
 
-    <!-- Hamburger Menu Button -->
     <div class="menu-icon">
-      <button
-        id="hamburger-button"
-        aria-label="Toggle navigation menu"
-        aria-expanded="false">
+      <button aria-label="Toggle navigation menu" aria-expanded="false">
         <i class="fas fa-bars"></i>
       </button>
     </div>
 
-    <!-- Navigation Menu -->
-    <nav id="responsive-menu" class="navbar-menu hidden">
+    <nav class="navbar-menu">
       <ul>
         <li>
-          <a href="../../src/home/index.html">
-            <i class="fas fa-home"></i> Home</a
-          >
+          <a href="../../src/home/index.html"><i class="fas fa-home"></i> Home</a>
         </li>
         <li>
-          <a href="../../src/listings/listings.html">
-            <i class="fas fa-gavel"></i> View Listings</a
-          >
+          <a href="../../src/listings/listings.html"><i class="fas fa-gavel"></i> View Listings</a>
         </li>
-        <li id="profile-link" style="display: none">
-          <a href="../../src/profile/profile.html">
-            <i class="fas fa-user"></i> My Profile</a
-          >
-        </li>
-        <li>
-          <a href="../../src/auth/login.html" class="btn btn-secondary">
-            Sign In</a
-          >
-        </li>
-        <li>
-          <a href="../../src/auth/register.html" class="btn btn-primary">
-            Register</a
-          >
+        <li id="auth-button-container">
+          <!-- Auth button will be dynamically added here -->
         </li>
       </ul>
     </nav>

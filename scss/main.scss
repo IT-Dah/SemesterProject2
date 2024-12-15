@@ -1,12 +1,22 @@
-// All @use statements
+// Import global variables
 @use "variables";
-@use "base/resets"; // Contains resets and global utilities like .visually-hidden
-@use "layout/mixins"; // Mixins for reusable CSS patterns
+
+// Import base resets and global utilities
+@use "base/resets"; // Resets and accessibility utilities
+
+// Import reusable layout mixins
+@use "layout/mixins"; // Reusable mixins for grid, flex, etc.
+
+// Import global layout styles
 @use "layout/header"; // Header styles
 @use "layout/footer"; // Footer styles
+
+// Import component styles
 @use "components/buttons"; // Button styles
 @use "components/cards"; // Card styles for listings
 @use "components/modals"; // Modal styles
+
+// Import page-specific styles
 @use "pages/login"; // Login page styles
 @use "pages/register"; // Registration page styles
 @use "pages/profile"; // Profile page styles

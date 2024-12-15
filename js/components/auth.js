@@ -14,9 +14,9 @@ export async function loginUser(email, password) {
       return;
     }
 
-    console.log("Attempting to login with:", { email });
+    console.log("Attempting to log in with:", { email });
 
-    // Make API call
+    // API call
     const response = await fetchFromApi("auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -25,21 +25,25 @@ export async function loginUser(email, password) {
 
     // Handle successful login
     if (response?.data?.accessToken) {
-      localStorage.setItem("accessToken", response.data.accessToken); // Save token securely
-      localStorage.setItem("userData", JSON.stringify(response.data)); // Save user data
+      localStorage.setItem("accessToken", response.data.accessToken); // Save access token
+      localStorage.setItem("username", response.data.name); // Save username
+      localStorage.setItem("userData", JSON.stringify(response.data)); // Save full user data
+
       alert("Login successful! Redirecting to your profile...");
       setTimeout(() => {
-        window.location.href = "/src/profile/index.html";
+        window.location.href = "/src/profile/profile.html"; // Updated redirect path
       }, 2000);
     } else {
       const errorMessage =
-        response?.message || "Login failed. Invalid credentials.";
+        response?.message || "Login failed. Please check your credentials.";
       console.error("Login Error:", errorMessage);
       alert(errorMessage);
     }
   } catch (error) {
     console.error("Login Error:", error.message || error);
-    alert("An unexpected error occurred while logging in. Please try again.");
+    alert(
+      "An unexpected error occurred while logging in. Please try again later."
+    );
   }
 }
 
@@ -53,7 +57,7 @@ export async function loginUser(email, password) {
 export async function registerUser(username, email, password) {
   try {
     // Input validation
-    if (!username || !/^[a-zA-Z0-9_]+$/.test(username)) {
+    if (!username || !/^[a-zA-Z0-9_]{3,}$/.test(username)) {
       throw new Error(
         "Username must be at least 3 characters long and contain only letters, numbers, or underscores."
       );
@@ -85,7 +89,7 @@ export async function registerUser(username, email, password) {
       console.log("Registration successful:", response.data);
       alert("Registration successful! Redirecting to login...");
       setTimeout(() => {
-        window.location.href = "/src/auth/login.html";
+        window.location.href = "/src/auth/login.html"; // Redirect to login page
       }, 2000);
     } else {
       const errorMessage =

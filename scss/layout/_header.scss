@@ -1,7 +1,6 @@
-@use "../variables"; // Import variables for consistent styling
+@use "../variables";
 
 .header {
-  position: relative; // Make the header a reference point for the menu
   background-color: variables.$theme-primary;
   color: variables.$theme-secondary;
   padding: 1rem;
@@ -10,17 +9,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .logo {
-    font-family: variables.$theme-font-heading;
-    font-size: 1.5rem;
-    color: variables.$theme-secondary;
-    text-decoration: none;
-
-    &:hover {
-      color: variables.$theme-accent;
-    }
   }
 
   .menu-icon {
@@ -38,74 +26,51 @@
   }
 
   .navbar-menu {
+    display: none; /* Hidden by default */
     position: absolute;
-    top: 100%; // Start just below the header
+    top: 100%;
     left: 0;
     right: 0;
     background-color: variables.$theme-primary;
-    box-shadow: variables.$theme-shadow-lg; // Add shadow for small screens
     padding: 1rem;
-    overflow: hidden;
-    max-height: 0; // Hide menu initially
-    transform: translateY(-10px); // Slide-up effect initially
-    opacity: 0; // Make it invisible initially
-    visibility: hidden; // Ensure it doesn't block clicks
-    transition: max-height 0.3s ease, transform 0.3s ease, opacity 0.3s ease,
-      visibility 0.3s ease;
+    box-shadow: variables.$theme-shadow-lg;
 
     ul {
       list-style: none;
-      margin: 0;
       padding: 0;
+      margin: 0;
 
       li {
         margin-bottom: 1rem;
 
         a {
-          display: block;
-          color: variables.$theme-secondary;
           text-decoration: none;
-          font-family: variables.$theme-font-body;
+          color: variables.$theme-secondary;
 
           &:hover {
             color: variables.$theme-accent;
           }
         }
       }
-
-      li:last-child {
-        margin-bottom: 0;
-      }
     }
 
     &.active {
-      max-height: 300px; // Adjust based on menu content
-      transform: translateY(0); // Slide down
-      opacity: 1; // Make it visible
-      visibility: visible; // Ensure it becomes interactive
+      display: block; /* Show menu when active */
     }
   }
 
   @media (min-width: variables.$theme-breakpoint-md) {
     .menu-icon {
-      display: none; // Hide hamburger button on larger screens
+      display: none; /* Hide Hamburger icon on large screens */
     }
 
     .navbar-menu {
       display: flex;
       position: static;
-      transform: none;
-      opacity: 1;
-      visibility: visible;
-      max-height: none;
-      padding: 0;
-      box-shadow: none; // Remove shadow on larger screens
-      transition: none;
-
+      box-shadow: none;
       ul {
         display: flex;
-        gap: 1.5rem;
-
+        gap: 1rem;
         li {
           margin-bottom: 0;
         }

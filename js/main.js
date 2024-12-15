@@ -1,6 +1,6 @@
 import { loadListings } from "./components/listings.js";
 import { setupResponsiveNavbar } from "./utils/menu.js";
-import { loginUser, registerUser } from "./components/auth.js"; // Import login and register logic
+import { loginUser, registerUser } from "./components/auth.js";
 
 /**
  * Display a loading spinner in the specified container.
@@ -19,33 +19,44 @@ function showLoading(containerId) {
 }
 
 /**
+ * Remove the spinner from a specific container.
+ * @param {string} containerId - The ID of the container to remove the spinner from.
+ */
+function removeSpinner(containerId) {
+  const container = document.getElementById(containerId);
+  if (container) {
+    const spinner = container.querySelector(".spinner");
+    if (spinner) spinner.remove();
+  }
+}
+
+/**
  * Dynamically load HTML components (e.g., header, footer).
  * @param {string} id - The ID of the placeholder div.
  * @param {string} filePath - The path to the HTML file to load.
  */
 async function loadComponent(id, filePath) {
-  try {
-    const placeholder = document.getElementById(id);
-    if (!placeholder) {
-      console.error(`Placeholder with ID '${id}' not found.`);
-      return;
-    }
+  const placeholder = document.getElementById(id);
+  if (!placeholder) {
+    console.error(`Placeholder with ID '${id}' not found.`);
+    return;
+  }
 
+  try {
     const response = await fetch(filePath);
     if (!response.ok) {
-      console.error(`Failed to load '${filePath}': ${response.statusText}`);
-      placeholder.innerHTML = `<p>Error loading component. Please try again later.</p>`;
-      return;
+      throw new Error(`Failed to load '${filePath}': ${response.statusText}`);
     }
 
-    const content = await response.text();
-    placeholder.innerHTML = content;
+    placeholder.innerHTML = await response.text();
 
+    // Initialize the navbar if the header is loaded
     if (id === "header-placeholder") {
       setupResponsiveNavbar();
     }
   } catch (error) {
-    console.error(`Error loading '${filePath}':`, error);
+    console.error(`Error loading component from '${filePath}':`, error);
+    placeholder.innerHTML = `<p>Error loading component. Please try again later.</p>`;
   }
 }
 
@@ -56,9 +67,7 @@ async function initializeIndexPage() {
   try {
     showLoading("card-container");
     await loadListings(12, 1, "endsAt", "asc");
-
-    const spinner = document.querySelector(".spinner");
-    if (spinner) spinner.remove();
+    removeSpinner("card-container");
   } catch (error) {
     console.error("Error initializing index page:", error);
     alert("Failed to load listings. Please refresh the page.");
@@ -68,85 +77,83 @@ async function initializeIndexPage() {
 /**
  * Initialize the register page.
  */
-async function initializeRegisterPage() {
-  console.log("Initializing register page...");
+function initializeRegisterPage() {
   const form = document.getElementById("register-form");
-
-  if (form) {
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      const username = document.getElementById("username").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirm-password").value;
-
-      if (!username || !email || !password || password !== confirmPassword) {
-        alert("Please fill in all fields and ensure passwords match.");
-        return;
-      }
-
-      try {
-        const result = await registerUser(username, email, password);
-        alert(result.message || "Registration successful!");
-        setTimeout(() => {
-          window.location.href = "/src/auth/login.html";
-        }, 2000);
-      } catch (error) {
-        alert(error.message || "Registration failed. Please try again.");
-      }
-    });
-  } else {
+  if (!form) {
     console.error("Register form not found.");
+    return;
   }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (!username || !email || !password || password !== confirmPassword) {
+      alert("Please fill in all fields and ensure passwords match.");
+      return;
+    }
+
+    try {
+      await registerUser(username, email, password);
+    } catch (error) {
+      console.error("Registration Error:", error.message);
+      alert(error.message || "Registration failed. Please try again.");
+    }
+  });
 }
 
 /**
  * Initialize the login page.
  */
-async function initializeLoginPage() {
-  console.log("Initializing login page...");
+function initializeLoginPage() {
   const form = document.getElementById("login-form");
-
-  if (form) {
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      if (!email || !password) {
-        alert("Please enter both email and password.");
-        return;
-      }
-
-      try {
-        await loginUser(email, password);
-      } catch (error) {
-        alert(error.message || "Login failed. Please try again.");
-      }
-    });
-  } else {
+  if (!form) {
     console.error("Login form not found.");
+    return;
   }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!email || !password) {
+      alert("Please enter both email and password.");
+      return;
+    }
+
+    try {
+      await loginUser(email, password);
+    } catch (error) {
+      console.error("Login Error:", error.message);
+      alert(error.message || "Login failed. Please try again.");
+    }
+  });
 }
 
 /**
- * Initialize the application.
+ * Initialize the application based on the current page.
  */
 async function initializeApp() {
   try {
+    // Dynamically load header and footer
     await loadComponent("header-placeholder", "/src/components/header.html");
     await loadComponent("footer-placeholder", "/src/components/footer.html");
 
+    // Determine the current page and initialize accordingly
     const currentPage = window.location.pathname;
 
     if (currentPage.includes("index.html") || currentPage === "/") {
       await initializeIndexPage();
     } else if (currentPage.includes("register.html")) {
-      await initializeRegisterPage();
+      initializeRegisterPage();
     } else if (currentPage.includes("login.html")) {
-      await initializeLoginPage();
+      initializeLoginPage();
     }
   } catch (error) {
     console.error("Error initializing the application:", error);
