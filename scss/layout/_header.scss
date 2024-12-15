@@ -1,7 +1,7 @@
 @use "../variables"; // Import variables for consistent styling
 
 .header {
-  position: relative; /* Make the header a reference point for the menu */
+  position: relative; // Make the header a reference point for the menu
   background-color: variables.$theme-primary;
   color: variables.$theme-secondary;
   padding: 1rem;
@@ -17,6 +17,10 @@
     font-size: 1.5rem;
     color: variables.$theme-secondary;
     text-decoration: none;
+
+    &:hover {
+      color: variables.$theme-accent;
+    }
   }
 
   .menu-icon {
@@ -35,17 +39,19 @@
 
   .navbar-menu {
     position: absolute;
-    top: 100%; /* Start just below the header */
+    top: 100%; // Start just below the header
     left: 0;
     right: 0;
     background-color: variables.$theme-primary;
-    box-shadow: variables.$theme-shadow-lg; /* Add shadow for small screens */
+    box-shadow: variables.$theme-shadow-lg; // Add shadow for small screens
     padding: 1rem;
     overflow: hidden;
-    max-height: 0; /* Hide menu initially */
-    transform: translateY(-10px); /* Slide-up effect initially */
-    opacity: 0; /* Make it invisible initially */
-    transition: max-height 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+    max-height: 0; // Hide menu initially
+    transform: translateY(-10px); // Slide-up effect initially
+    opacity: 0; // Make it invisible initially
+    visibility: hidden; // Ensure it doesn't block clicks
+    transition: max-height 0.3s ease, transform 0.3s ease, opacity 0.3s ease,
+      visibility 0.3s ease;
 
     ul {
       list-style: none;
@@ -73,15 +79,16 @@
     }
 
     &.active {
-      max-height: 300px; /* Adjust this value based on menu content */
-      transform: translateY(0); /* Slide down */
-      opacity: 1; /* Make it visible */
+      max-height: 300px; // Adjust based on menu content
+      transform: translateY(0); // Slide down
+      opacity: 1; // Make it visible
+      visibility: visible; // Ensure it becomes interactive
     }
   }
 
   @media (min-width: variables.$theme-breakpoint-md) {
     .menu-icon {
-      display: none; /* Hide hamburger button on larger screens */
+      display: none; // Hide hamburger button on larger screens
     }
 
     .navbar-menu {
@@ -89,9 +96,10 @@
       position: static;
       transform: none;
       opacity: 1;
+      visibility: visible;
       max-height: none;
       padding: 0;
-      box-shadow: none; /* Remove shadow on larger screens */
+      box-shadow: none; // Remove shadow on larger screens
       transition: none;
 
       ul {

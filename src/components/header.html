@@ -1,33 +1,44 @@
 <header class="header">
   <div class="container">
+    <!-- Logo -->
     <a href="../../src/home/index.html" class="logo">Velorum</a>
 
+    <!-- Hamburger Menu Button -->
     <div class="menu-icon">
-      <button aria-label="Toggle navigation menu" aria-expanded="false">
+      <button
+        id="hamburger-button"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false">
         <i class="fas fa-bars"></i>
       </button>
     </div>
 
-    <nav class="navbar-menu">
+    <!-- Navigation Menu -->
+    <nav id="responsive-menu" class="navbar-menu hidden">
       <ul>
         <li>
-          <a href="../../src/home/index.html"
-            ><i class="fas fa-home"></i> Home</a
+          <a href="../../src/home/index.html">
+            <i class="fas fa-home"></i> Home</a
           >
         </li>
         <li>
-          <a href="../../src/listings/listings.html"
-            ><i class="fas fa-gavel"></i> View Listings</a
+          <a href="../../src/listings/listings.html">
+            <i class="fas fa-gavel"></i> View Listings</a
+          >
+        </li>
+        <li id="profile-link" style="display: none">
+          <a href="../../src/profile/profile.html">
+            <i class="fas fa-user"></i> My Profile</a
           >
         </li>
         <li>
-          <a href="../../src/auth/login.html" class="btn btn-secondary"
-            >Sign In</a
+          <a href="../../src/auth/login.html" class="btn btn-secondary">
+            Sign In</a
           >
         </li>
         <li>
-          <a href="../../src/auth/register.html" class="btn btn-primary"
-            >Register</a
+          <a href="../../src/auth/register.html" class="btn btn-primary">
+            Register</a
           >
         </li>
       </ul>

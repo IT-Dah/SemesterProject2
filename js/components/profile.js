@@ -1,125 +1,103 @@
 import { fetchFromApi } from "../utils/api.js";
-import { setupResponsiveNavbar } from "../utils/menu.js";
 
 /**
  * Fetch and display profile data.
- * @param {string} profileName - The profile name to fetch.
  */
-export async function loadProfile(profileName) {
-  const profileContainer = document.getElementById("profile-container");
-  profileContainer.innerHTML = "<p>Loading profile...</p>";
+async function fetchAndDisplayProfile() {
+  const accessToken = localStorage.getItem("accessToken"); // Retrieve access token
+  const apiKey = "424f3416-7ec1-4347-979f-87525187f9b9"; // Replace with your API key
+  const username = localStorage.getItem("username") || "puddingtv32"; // Retrieve dynamically
 
-  try {
-    const response = await fetchFromApi(
-      `auction/profiles/${profileName}?_listings=true`
-    );
-    console.log("Profile data:", response);
-
-    if (response) {
-      const { name, email, bio, avatar, credits, listings, _count } = response;
-
-      const avatarUrl = avatar?.url || "assets/images/default-avatar.svg";
-
-      // Build profile HTML
-      profileContainer.innerHTML = `
-        <div class="profile-card">
-          <img src="${avatarUrl}" alt="${name}'s avatar" class="profile-avatar" onerror="this.src='assets/images/default-avatar.svg';">
-          <h2>${name}</h2>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Credits:</strong> ${credits}</p>
-          <p><strong>Bio:</strong> ${bio || "No bio available."}</p>
-          <p><strong>Listings:</strong> ${_count.listings}</p>
-        </div>
-      `;
-
-      // Display listings if available
-      const listingsContainer = document.getElementById("listings-container");
-      if (listings?.length) {
-        const listingsHtml = listings
-          .map(
-            (listing) => `
-          <div class="listing-card">
-            <h3>${listing.title || "Untitled"}</h3>
-            <p>Ends: ${new Date(listing.endsAt).toLocaleString()}</p>
-            <a href="details.html?id=${
-              listing.id
-            }" class="btn btn-primary">View Details</a>
-          </div>`
-          )
-          .join("");
-        listingsContainer.innerHTML = listingsHtml;
-      } else {
-        listingsContainer.innerHTML = "<p>No active listings found.</p>";
-      }
-    } else {
-      profileContainer.innerHTML = "<p>Failed to load profile data.</p>";
-    }
-  } catch (error) {
-    console.error("Error loading profile:", error);
-    profileContainer.innerHTML =
-      "<p>Failed to load profile. Please try again later.</p>";
-  }
-}
-
-/**
- * Update profile data (e.g., bio, avatar, banner).
- * @param {string} profileName - The profile name to update.
- * @param {object} data - The profile data to update.
- */
-export async function updateProfile(profileName, data) {
-  try {
-    const response = await fetchFromApi(`auction/profiles/${profileName}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-
-    if (response) {
-      alert("Profile updated successfully.");
-      loadProfile(profileName); // Reload the profile after update
-    } else {
-      alert("Failed to update profile.");
-    }
-  } catch (error) {
-    console.error("Error updating profile:", error);
-    alert("An error occurred while updating your profile.");
-  }
-}
-
-/**
- * Initialize the profile page.
- */
-document.addEventListener("DOMContentLoaded", () => {
-  // Replace "yourProfileName" with dynamic logic to fetch the user's profile name
-  const profileName = localStorage.getItem("username"); // Example: Fetch from localStorage or an API
-  if (!profileName) {
-    alert("No profile name found. Please log in.");
-    window.location.href = "login.html";
+  if (!accessToken) {
+    console.error("No access token found. Redirecting to login.");
+    window.location.href = "/src/auth/login.html";
     return;
   }
 
-  loadProfile(profileName);
+  const endpoint = `social/profiles/${username}?_posts=true&_followers=true&_following=true`;
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "X-Noroff-API-Key": apiKey,
+    },
+  };
 
-  const updateProfileForm = document.getElementById("update-profile-form");
-  if (updateProfileForm) {
-    updateProfileForm.addEventListener("submit", (event) => {
-      event.preventDefault();
+  try {
+    // Fetch profile data from the API
+    const response = await fetchFromApi(endpoint, options);
+    const { data } = response;
 
-      // Collect form data
-      const bio = document.getElementById("bio").value;
-      const avatarUrl = document.getElementById("avatar-url").value;
-      const bannerUrl = document.getElementById("banner-url").value;
+    // Update DOM with profile data
+    updateProfileHeader(data);
+    updateProfileCounts(data);
 
-      const data = {};
-      if (bio) data.bio = bio;
-      if (avatarUrl) data.avatar = { url: avatarUrl };
-      if (bannerUrl) data.banner = { url: bannerUrl };
-
-      // Update profile
-      updateProfile(profileName, data);
-    });
+    console.log("Profile data loaded successfully:", data);
+  } catch (error) {
+    console.error("Error fetching profile data:", error.message || error);
+    alert("Failed to load profile. Please try again later.");
   }
+}
 
-  // Setup the responsive navigation menu
-  setupResponsiveNavbar();
-});
+/**
+ * Safely update a DOM element's text content.
+ * @param {string} selector - CSS selector for the target element.
+ * @param {string} value - The text content to set.
+ * @param {string} fallback - Fallback text if value is empty.
+ */
+function safeSetTextContent(selector, value, fallback = "") {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.innerText = value || fallback;
+  } else {
+    console.warn(`Element with selector '${selector}' not found.`);
+  }
+}
+
+/**
+ * Safely update a DOM element's image source and alt text.
+ * @param {string} selector - CSS selector for the target image element.
+ * @param {string} src - The image URL.
+ * @param {string} alt - The alt text for the image.
+ * @param {string} fallbackSrc - Fallback image URL.
+ * @param {string} fallbackAlt - Fallback alt text.
+ */
+function safeSetImageSrc(selector, src, alt, fallbackSrc, fallbackAlt) {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.src = src || fallbackSrc;
+    element.alt = alt || fallbackAlt;
+  } else {
+    console.warn(`Image element with selector '${selector}' not found.`);
+  }
+}
+
+/**
+ * Update the profile header with avatar, name, email, and bio.
+ * @param {object} data - Profile data from API.
+ */
+function updateProfileHeader(data) {
+  safeSetImageSrc(
+    "#profile-avatar",
+    data.avatar?.url,
+    data.avatar?.alt || "User Avatar",
+    "/assets/images/default-avatar.svg",
+    "Default Avatar"
+  );
+  safeSetTextContent("#profile-name", data.name, "Unknown User");
+  safeSetTextContent("#profile-email", data.email, "No email provided");
+  safeSetTextContent("#profile-bio", data.bio, "This user has no bio yet.");
+}
+
+/**
+ * Update profile statistics (posts, followers, following).
+ * @param {object} data - Profile data with _count information.
+ */
+function updateProfileCounts(data) {
+  safeSetTextContent("#post-count", data._count?.posts, "0");
+  safeSetTextContent("#followers-count", data._count?.followers, "0");
+  safeSetTextContent("#following-count", data._count?.following, "0");
+}
+
+// Run function after DOM content is fully loaded
+document.addEventListener("DOMContentLoaded", fetchAndDisplayProfile);

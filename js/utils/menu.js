@@ -14,13 +14,26 @@ export function setupResponsiveNavbar() {
     navbarMenu.classList.toggle("active");
   });
 
-  // Close the menu if clicked outside
+  // Close the menu if clicked outside or on a menu item
   document.addEventListener("click", (event) => {
+    const clickedOutside =
+      !event.target.closest(".menu-icon") &&
+      !event.target.closest(".navbar-menu");
+
+    const clickedMenuItem = event.target.closest(".navbar-menu ul li a");
+
     if (
       navbarMenu.classList.contains("active") &&
-      !event.target.closest(".menu-icon") &&
-      !event.target.closest(".navbar-menu")
+      (clickedOutside || clickedMenuItem)
     ) {
+      menuButton.setAttribute("aria-expanded", "false");
+      navbarMenu.classList.remove("active");
+    }
+  });
+
+  // Adjust menu visibility on window resize
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
       menuButton.setAttribute("aria-expanded", "false");
       navbarMenu.classList.remove("active");
     }

@@ -3,99 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Manage your profile on Velorum. Update your bio, avatar, and banner." />
-    <title>Profile - Velorum</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <title>Velorum - Profile</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../css/styles.css" />
   </head>
   <body>
-    <header class="header" role="banner">
-      <div class="container">
-        <a href="index.html" class="logo" aria-label="Velorum Home">Velorum</a>
-        <div class="menu-icon">
-          <button aria-label="Toggle navigation menu" aria-expanded="false">
-            ☰
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Profile Section -->
+    <main id="profile-container" class="container my-4">
+      <!-- Profile Header -->
+      <section class="profile-header text-center">
+        <img
+          id="profile-avatar"
+          src="../../assets/images/default-avatar.svg"
+          alt="Profile Avatar"
+          class="profile-avatar rounded-circle" />
+        <h1 id="profile-name" class="profile-name">Username</h1>
+        <p id="profile-email" class="profile-email">user@stud.noroff.no</p>
+        <p id="profile-points" class="profile-points">
+          🎉 <span id="points-value">1000</span> worth points
+        </p>
+
+        <!-- Profile Action Buttons -->
+        <div class="profile-buttons">
+          <button
+            class="btn btn-primary"
+            id="edit-profile"
+            aria-label="Edit your profile">
+            Edit Profile
           </button>
-        </div>
-        <nav class="navbar-menu">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="listings.html">Listings</a></li>
-            <li><a href="#" class="active">Profile</a></li>
-            <li><a href="#" id="sign-out">Sign Out</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <main class="container my-5" role="main">
-      <section aria-labelledby="profile-heading">
-        <h1 id="profile-heading">Your Profile</h1>
-        <div id="profile-container" aria-live="polite">
-          <!-- Profile details will be dynamically loaded here -->
+          <button
+            class="btn btn-secondary"
+            id="edit-avatar"
+            aria-label="Change your avatar">
+            Change Avatar
+          </button>
         </div>
       </section>
 
-      <section
-        aria-labelledby="update-profile-heading"
-        class="update-profile-section">
-        <h2 id="update-profile-heading">Update Profile</h2>
-        <form id="update-profile-form" novalidate>
-          <div class="mb-3">
-            <label for="bio" class="form-label">Bio</label>
-            <textarea
-              id="bio"
-              class="form-control"
-              placeholder="Tell us about yourself"
-              rows="4"
-              maxlength="200"
-              aria-describedby="bio-help"></textarea>
-            <small id="bio-help" class="form-text"
-              >Maximum 200 characters.</small
-            >
-          </div>
-          <div class="mb-3">
-            <label for="avatar-url" class="form-label">Avatar URL</label>
-            <input
-              type="url"
-              id="avatar-url"
-              class="form-control"
-              placeholder="https://example.com/avatar.jpg"
-              aria-describedby="avatar-help" />
-            <small id="avatar-help" class="form-text"
-              >Enter a valid URL for your avatar image.</small
-            >
-          </div>
-          <div class="mb-3">
-            <label for="banner-url" class="form-label">Banner URL</label>
-            <input
-              type="url"
-              id="banner-url"
-              class="form-control"
-              placeholder="https://example.com/banner.jpg"
-              aria-describedby="banner-help" />
-            <small id="banner-help" class="form-text"
-              >Enter a valid URL for your profile banner image.</small
-            >
-          </div>
-          <button type="submit" class="btn btn-primary w-100">
-            Update Profile
-          </button>
-        </form>
+      <!-- Listings Section -->
+      <section class="listings-section mt-5">
+        <h2 class="section-title">
+          Listings by <span id="listing-username">Username</span>:
+        </h2>
+        <div id="listings-container" class="grid-container">
+          <!-- Cards populated dynamically via JS -->
+        </div>
       </section>
-    </main>
-    <footer class="footer" role="contentinfo">
-      <div class="container">
-        <p>&copy; 2024 Velorum. All rights reserved.</p>
-        <nav>
-          <ul>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="terms.html">Terms of Service</a></li>
-          </ul>
-        </nav>
+
+      <!-- Bids Section -->
+      <section class="bids-section mt-5">
+        <h2 class="section-title">
+          <span id="bids-username">Username</span> has bid on:
+        </h2>
+        <div id="bids-container" class="grid-container">
+          <!-- Cards populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- Logout Button -->
+      <div class="text-center my-4">
+        <button
+          id="logout-button"
+          class="btn btn-success"
+          aria-label="Sign out of your account">
+          Sign Out
+        </button>
       </div>
-    </footer>
-    <script type="module" src="js/components/profile.js"></script>
-    <script type="module" src="js/utils/menu.js"></script>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="../../js/components/profile.js"></script>
+    <script type="module" src="../../js/main.js"></script>
   </body>
 </html>
