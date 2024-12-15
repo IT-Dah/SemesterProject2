@@ -1,9 +1,8 @@
-@use "../variables"; // Import variables for consistent styling
+@use "../variables"; // Import variables
 
-/* Login Page Styling */
 .login-form {
   margin: 0 auto;
-  max-width: 500px;
+  max-width: 400px;
   padding: 2rem;
   background-color: variables.$theme-background;
   border: 1px solid variables.$theme-neutral-light;
@@ -14,7 +13,7 @@
     font-family: variables.$theme-font-heading;
     color: variables.$theme-primary;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   label {
@@ -24,7 +23,8 @@
     color: variables.$theme-neutral;
   }
 
-  input {
+  input,
+  button {
     width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
@@ -38,28 +38,10 @@
     background-color: variables.$theme-accent;
     color: variables.$theme-secondary;
     font-size: 1rem;
-    padding: 0.75rem;
-    border: none;
-    border-radius: variables.$theme-border-radius;
     cursor: pointer;
 
     &:hover {
       background-color: variables.$theme-hover-green;
-    }
-  }
-
-  p {
-    font-family: variables.$theme-font-body;
-    font-size: 0.9rem;
-    color: variables.$theme-neutral;
-
-    a {
-      color: variables.$theme-primary;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Sign in to Velorum - Access the premier auction platform." />
+      content="Sign in to Velorum - Your premier auction platform." />
     <title>Velorum - Sign In</title>
     <link rel="stylesheet" href="../../css/styles.css" />
     <link
@@ -23,16 +23,8 @@
     <main class="container my-5">
       <h1 class="text-center">Sign In</h1>
       <form id="login-form" class="login-form">
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            class="form-control"
-            placeholder="Enter your username"
-            required />
-        </div>
+        <div id="feedback-message" class="feedback"></div>
+
         <div class="form-group">
           <label for="email">Email Address:</label>
           <input
@@ -50,7 +42,7 @@
             id="password"
             name="password"
             class="form-control"
-            placeholder="Enter your password"
+            placeholder="Enter password"
             required />
         </div>
         <div class="form-group">
