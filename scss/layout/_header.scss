@@ -1,10 +1,10 @@
 @use "../variables";
 
 .header {
-  position: relative; /* Ensure it stays at the top */
   background-color: variables.$theme-primary;
   color: variables.$theme-secondary;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   .container {
     display: flex;
@@ -14,89 +14,79 @@
 
   .logo {
     font-family: variables.$theme-font-heading;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     color: variables.$theme-secondary;
     text-decoration: none;
   }
 
-  .menu-icon {
-    button {
-      background: none;
-      border: none;
-      color: variables.$theme-secondary;
-      font-size: 1.5rem;
-      cursor: pointer;
+  .menu-icon button {
+    background: none;
+    border: none;
+    color: variables.$theme-secondary;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
 
-      &:hover {
-        color: variables.$theme-accent;
-      }
+    &:hover {
+      color: variables.$theme-accent;
     }
   }
 
   .navbar-menu {
     position: absolute;
-    top: 100%; /* Position below the header */
+    top: 100%;
     left: 0;
     right: 0;
     background-color: variables.$theme-primary;
     padding: 1rem;
-    transform: translateY(-20px); /* Slide-up effect initially */
+    transform: translateY(-20px);
     opacity: 0;
     visibility: hidden;
-    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    transition: all 0.3s ease;
 
     ul {
       list-style: none;
       margin: 0;
       padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
 
-      li {
-        margin-bottom: 1rem;
+      a {
+        color: variables.$theme-secondary;
+        text-decoration: none;
+        font-family: variables.$theme-font-body;
 
-        a {
-          display: block;
-          color: variables.$theme-secondary;
-          text-decoration: none;
-
-          &:hover {
-            color: variables.$theme-accent;
-          }
+        &:hover {
+          color: variables.$theme-accent;
         }
-      }
-
-      li:last-child {
-        margin-bottom: 0;
       }
     }
 
     &.active {
-      transform: translateY(0); /* Slide down */
+      transform: translateY(0);
       opacity: 1;
       visibility: visible;
     }
   }
 
   @media (min-width: variables.$theme-breakpoint-md) {
-    .menu-icon {
-      display: none; /* Hide hamburger on larger screens */
-    }
-
     .navbar-menu {
-      display: flex;
       position: static;
       transform: none;
       opacity: 1;
       visibility: visible;
+      background: none;
       padding: 0;
 
       ul {
-        display: flex;
+        flex-direction: row;
         gap: 1.5rem;
-
-        li {
-          margin-bottom: 0;
-        }
       }
+    }
+
+    .menu-icon {
+      display: none;
     }
   }
 }

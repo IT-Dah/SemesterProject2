@@ -1,0 +1,10 @@
+/* scss/pages/_details.scss */
+@use "../variables";
+
+.details-page {
+  padding: 2rem;
+  h1 {
+    font-size: 2rem;
+    color: variables.$theme-primary;
+  }
+}

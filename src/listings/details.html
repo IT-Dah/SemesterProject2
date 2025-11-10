@@ -7,26 +7,10 @@
       name="description"
       content="View detailed information and place bids on listings at Velorum." />
     <title>Listing Details - Velorum</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="../../css/styles.css" />
   </head>
   <body>
-    <header>
-      <div class="container">
-        <a href="index.html" class="logo">Velorum</a>
-        <div class="menu-icon">
-          <button aria-expanded="false" aria-label="Toggle navigation menu">
-            ☰
-          </button>
-        </div>
-        <nav class="navbar-menu">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="listings.html">Listings</a></li>
-            <li><a href="profile.html">Profile</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <div id="header-placeholder"></div>
     <main class="container my-5">
       <article id="listing-container" aria-busy="true">
         <p>Loading listing...</p>
@@ -49,18 +33,11 @@
         </form>
       </section>
     </main>
-    <footer>
-      <div class="container">
-        <p>&copy; 2024 Velorum. All rights reserved.</p>
-        <nav>
-          <ul>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="terms.html">Terms of Service</a></li>
-          </ul>
-        </nav>
-      </div>
-    </footer>
-    <script type="module" src="js/details.js"></script>
-    <script type="module" src="js/menu.js"></script>
+    <div id="footer-placeholder"></div>
+    <script type="module">
+  import { setupResponsiveNavbar } from "../../js/utils/menu.js";
+  import "../../js/components/details.js"; // details.js self-inits on DOMContentLoaded
+  document.addEventListener("DOMContentLoaded", setupResponsiveNavbar);
+</script>
   </body>
 </html>

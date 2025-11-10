@@ -1,0 +1,14 @@
+/* Listings page styles */
+@use "../base/resets";
+@use "../layout/mixins";
+@use "../variables" as *;
+
+/* Example styles */
+.listings-page {
+  padding: 2rem;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}

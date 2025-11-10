@@ -1,4 +1,4 @@
-import { loadListings } from "./components/listings.js";
+import { loadListings, setupPagination } from "./components/listings.js";
 import { setupResponsiveNavbar } from "./utils/menu.js";
 import { loginUser, registerUser } from "./components/auth.js";
 
@@ -143,9 +143,6 @@ async function initializeProfilePage() {
   console.log("Profile page initialization logic can be added here.");
 }
 
-/**
- * Initialize the application based on the current page.
- */
 async function initializeApp() {
   try {
     // Dynamically load header and footer
@@ -157,13 +154,26 @@ async function initializeApp() {
 
     if (currentPage.includes("index.html") || currentPage === "/") {
       await initializeIndexPage();
+
     } else if (currentPage.includes("register.html")) {
       initializeRegisterPage();
+
     } else if (currentPage.includes("login.html")) {
       initializeLoginPage();
+
     } else if (currentPage.includes("profile.html")) {
       await initializeProfilePage();
+
+    } else if (currentPage.includes("listings.html")) {
+      showLoading("card-container");
+      await loadListings(12, 1, "endsAt", "asc");
+      removeSpinner("card-container");
+      setupPagination();
+
+    } else if (currentPage.includes("details.html")) {
+      await import("./components/details.js");
     }
+
   } catch (error) {
     console.error("Error initializing the application:", error);
     alert("An error occurred while loading the application. Please try again.");

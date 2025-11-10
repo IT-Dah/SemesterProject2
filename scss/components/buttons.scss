@@ -6,20 +6,21 @@
   align-items: center;
   font-family: variables.$theme-font-body;
   font-size: variables.$font-size-base;
-  padding: 0.5rem 1rem;
-  border-radius: variables.$theme-border-radius;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px; // matches your Figma buttons
   border: none;
   cursor: pointer;
   text-align: center;
-  text-decoration: none; // Remove underlines for button links
-  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   &:hover:not(:disabled) {
-    transform: translateY(-2px); // Subtle lift on hover
+    transform: translateY(-2px);
   }
 
   &:focus {
-    outline: 3px solid variables.$theme-focus-outline; // Accessibility focus outline
+    outline: 3px solid variables.$theme-focus-outline;
     outline-offset: 2px;
   }
 
@@ -31,16 +32,16 @@
   }
 
   &--primary {
-    background-color: variables.$theme-blue-button; // Navy Blue
+    background-color: variables.$theme-blue-button;
     color: variables.$theme-secondary;
 
     &:hover:not(:disabled) {
-      background-color: variables.$theme-hover-green; // Green Hover
+      background-color: variables.$theme-primary;
     }
   }
 
   &--accent {
-    background-color: variables.$theme-accent; // Teal Green
+    background-color: variables.$theme-accent;
     color: variables.$theme-secondary;
 
     &:hover:not(:disabled) {
@@ -49,33 +50,13 @@
   }
 
   &--outline {
-    background-color: transparent;
-    border: 2px solid variables.$theme-primary; // Navy Blue border
+    background: none;
+    border: 2px solid variables.$theme-primary;
     color: variables.$theme-primary;
 
     &:hover:not(:disabled) {
       background-color: variables.$theme-primary;
       color: variables.$theme-secondary;
     }
-  }
-
-  &--danger {
-    background-color: variables.$theme-danger; // Danger Red
-    color: variables.$theme-secondary;
-
-    &:hover:not(:disabled) {
-      background-color: variables.$theme-danger-hover; // Darker Red
-    }
-  }
-
-  // Small and Large button modifiers
-  &--small {
-    font-size: variables.$font-size-small;
-    padding: 0.3rem 0.6rem;
-  }
-
-  &--large {
-    font-size: variables.$font-size-large;
-    padding: 0.75rem 1.5rem;
   }
 }
